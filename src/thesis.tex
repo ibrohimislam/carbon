@@ -30,14 +30,24 @@
 % citation style
 \usepackage[backend=bibtex,citestyle=authoryear]{biblatex}
 
+\usepackage[autostyle]{csquotes}
 \usepackage{graphicx}
 \usepackage{titling}
 \usepackage{blindtext}
 \usepackage{sectsty}
 \usepackage{chngcntr}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{textcomp}
+\usepackage{float}
+\usepackage{caption}
+
+\floatstyle{plaintop}
+\restylefloat{table}
 
 \counterwithin{figure}{section}
 \counterwithin{table}{section}
+
+\captionsetup[table]{skip=10pt}
 
 \makeatletter
 \def\@kampus{Institut Teknologi Bandung}
@@ -69,6 +79,7 @@ oleh\\
 \chapterfont{\centering \Large}
 \sectionfont{\large}
 
+\renewcommand{\thechapter}{\Roman{chapter}}
 
 \bibliography{references}
 
@@ -76,9 +87,9 @@ oleh\\
 
 \title{Panduan Tugas Akhir Informatika}
 \date{}
-\author{Peb Ruswono Aryan\\
+\author{Ibrohim Kholilul Islam\\
 %NIM
-13502044}
+13513090}
 
 \pagenumbering{roman}
 \setcounter{page}{0}

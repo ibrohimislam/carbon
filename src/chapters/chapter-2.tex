@@ -1,9 +1,283 @@
 \chapter{Tinjauan Pustaka}
 
-\section{Dasar Teori}
-\blindtext
-%\dummyfigure{Peta Konsep}
-Tulisan ini merujuk pada \parencite{knuth2001art}
+\section{Network Border Security}
+Pada (Strebe, 2004) border-security secara teori harus memiliki measures sebagai
+berikut:
+\begin{enumerate}
+	\item \textit{Control every crossing}
+	
+	Border security harus melakukan pengecekan untuk setiap lalu lintas data antara internal network dan external network. Sebuah koneksi antara internal network dan external network yang tidak dilakukan pengecekan
+	dapat menjadi celah untuk terjadinya serangan.
+	
+	\item \textit{Apply the same policy universally}
+	
+	Sebuah control untuk sebuah lalu lintas data tertentu harus dilakukan sama untuk seluruh hubungan yang terjadi antara internal network dan external network. Hal ini membutuhkan penerapan menyeluruh, karena efek dari penerapan ini akan bergantung pada penerapan yang terlemah.
+	
+	\item \textit{Deny by default}
+	
+	Seluruh keterhubungan hanya akan memperbolehkan lalu lintas data yang ada pada whitelist. Penerapan ini perlu dilakukan untuk lalu lintas ke luar	maupun ke dalam firewall.
+	
+	\item \textit{Hide as much as information as possible}
+	
+	Penyembunyian data interior dari sebuah network perlu dilakukan. Hal ini digunakan untuk mencegah penyerang mendapatan informasi internal network.
+	
+\end{enumerate}
 
-\section{Studi Terkait}
-\blindtext
+\section{Firewall}
+Firewall merupakan hardware, software atau kombinasi keduanya yang digunakan untuk melakukan monitoring dan filter terhadap lalu lintas data yang masuk atau keluar dari sebuah jaringan yang berusaha dilindungi. (Kizza, 2005)
+
+Menurut (Stallings, 2012) \textit{design goal firewall} sebagai berikut:
+\begin{itemize}
+	\item Seluruh lalu lintas data dari dalam ke luar ataupun sebaliknya, harus melalui
+	firewall.
+	\item Hanya lalu lintas data yang terotorisasi yang dapat melalui firewall.
+	\item Firewall merupakan system yang kebal terhaadap penetration.
+\end{itemize}
+
+Kekuatan dan kelemahan dari firewall menurut (Peterson, 2012):
+\begin{itemize}
+	\item Firewall dapat dideploy unilaterally
+	\item Firewall tidak dapat membatasi akses antara host yang berada dalam internal-network
+	\item Jika pihak diberikan akses ke internal-network, maka pihak tersebut
+	menjadi security vulnerability.
+	\item Bug pada firewall yang dapat diakses dari internal-network dapat menjadi masalah serius.
+\end{itemize}
+
+Firewall saat ini yang pada umumnya memiliki tipe sebagai berikut:
+
+\begin{enumerate}
+	\item \textit{Packet filtering firewall}
+	\textit{Packet filtering firewall}
+	
+	merupakan firewall yang menggunakan informasi dari protokol IP untuk menentukan apakah dilakukan teruskan atau buang untuk lalu lintas data masuk maupun keluar.
+	
+	\item \textit{Application proxy firewall}
+	
+	Application proxy firewall atau application gateway merupakan firewall yang digunakan pada application layer untuk sebuah protocol tertentu.
+	
+\end{enumerate}
+
+\section{Arsitektur Firewall}
+Firewall pada implementasinya dapat ditempatkan dengan beberapa arsitektur menurut (\cite{zwicky2000building}).
+
+\subsection{Arsitektur \textit{Dual-Homed Host}}
+
+Arsitektur \textit{dual-homed host} merupakan dibangun dengan menggunakan komputer \textit{dual-homed host}, yakni sebuah komputer yang terhubung dengan dua atau lebih jaringan. Komputer ini dapat bekerja sebagai router antara kedua jaringan yang terhubung ke komputer tersebut. Namun, untuk mengimplemntasi firewall dengan arsitektur \textit{dual-homed host} fungsi routing ini tidak difungsikan. Sehingga tidak ada data yang dapat dikirimkan langsung antar kedua jaringan. Jadi untuk setiap paket yang akan dikirimkan dari jaringan internal ke jaringan luar harus melalui \textit{dual-homed host}, dan dari jaringan luar ke jaringan dalam juga harus melalui \textit{dual-homed host}. Sehingga susunan komponen pada jaringan tersebut seperti pada gambar \ref{fig:dual_homed}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=300px]{resources/dual_homed.png}
+	\caption{Arsitektur \textit{Dual-Homed}}
+	\label{fig:dual_homed}
+\end{figure}
+
+\subsection{Arsitektur \textit{Screened Host}}
+
+Berbeda dengan arsitektur \textit{dual-homed host} yang memberikan service dari host yang terhubung ke beberapa jaringan dengan fungsi tidak mengaktifkan fungsi routing, arsitektur \textit{screened host} memberikan layanan dari host yang hanya terhubung ke internal network dan menggunakan router terpisah seperti pada  gambar \ref{fig:screened_host}. Pada arsitektur ini, keamanan dijaga oleh packet filtering, dengan melakukan konfigurasi berikut:
+
+\begin{enumerate}
+\item Memperbolehkan \textit{internal host} untuk dapat mengakses beberapa service langsung tanpa melalui proxy.
+\item Melarang semua paket dari internal host. (Untuk memaksa host itu menggunakan proxy).
+\end{enumerate}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=300px]{resources/screened_host.png}
+	\caption{Arsitektur \textit{Screened Host}}
+	\label{fig:screened_host}
+\end{figure}
+
+\subsection{Arsitektur \textit{Screened Subnet}}
+
+Arsitektur \textit{screened subnet} memiliki layer tambahan dibandingkan dengan arsitektur \textit{screened host} dengan memisahkan internal network lebih jauh dari Internet.
+
+Arsitektur ini ditujukan agar host \textit{bastion}, yakni host yang dieskpos ke Internet, merupakan host yang paling rentan untuk diserang. Meskipun host sudah dilakukan usaha untuk melindungi host tersebut, namun host tersebut menjadi titik paling jelas untuk diserang.
+Jika pada arsitektur \textit{screened host}
+
+
+ If, as in a screened host architecture, your internal network is wide open to attack from your bastion host, then your bastion host is a very tempting target. There are no other defenses between it and your other internal machines (besides whatever host security they may have, which is usually very little). If someone successfully breaks into the bastion host in a screened host architecture, he's hit the jackpot.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=300px]{resources/screened_subnet.png}
+	\caption{Arsitektur \textit{Screened Subnet}}
+	\label{fig:screened_subnet}
+\end{figure}
+
+\section{Next Generation Firewall}
+
+Next Generation Firewall (NGFW) merupakan pengembangan dari first-generation firewall yang memiliki Deep Packet Inspection (DPI). Secara fungsionalitas NGFW merupakan gabungan dari IPS dan first-generation firewall. NGFW dapat dipandang sebagai IPS karena NGFW memiliki awareness terhadap application level payload. Hasil pengecekan kemudian digunakan untuk memutuskan apakah paket di-forward atau di-drop. (Pescatore, 2009)
+
+Deep packet inspection merupakan fungsionalitas yang menjadi fokus pada next-generation firewall. Hal ini yang membedakan next-generation firewall dengan first-generation firewall.
+
+\section{Malware}
+\textit{Malicious software} menurut (\cite{idika2007survey}) memiliki banyak baentuk salah satunya adalah Malicious Code (MC). Menurut (\cite{attackingmalcode}), malicious code merupakan kode yang ditambahkan, diubah, atau dihilangkan dari sistem software untuk membahayakan atau mengubah fungsi yang diharapkan dapat dilakukan oleh sistem.
+
+\subsection{Virus}
+Virus merupakan program komputer yang mereplikasi dengan menyisipkan dirinya ke program lain. Program yang disisipi oleh virus menjadi terinfeksi disebut inang. Hal ini yang membedakan virus dengan malware lain, untuk melakukan fungsinya virus memerlukan inang (\cite{attackingmalcode}). 
+
+\subsection{Worm}
+Worm merupakan program komputer yang mereplikasi dirinya dengan menjalankan kode worm yang manjadi sebuah program tersendiri. Bagian yang membedakan worm dan virus, worm tidak memerlukan inang untuk melakukan fungsinya. Selain itu, virus dan worm juga berbeda pada cara penyebarannya. Pada umumnya, virus berusaha untuk menyebar melalui file atau program pada satu komputer. Sedangkan worm berusaha untuk menginfeksi sebanyak mungkin komputer melalui jaringan (\cite{attackingmalcode}).
+
+\subsection{Trojan horses}
+Trojan horse merupakan malicious code yang tambahkan oleh desainer dalam sebuah aplikasi atau sistem. Aplikasi tersebut menjalankan fungsinya, namun melakukan aktifitas malicious seperti merekam kegiatan pengguna dan mengirimkannya ke pembuatnya. Trojan horse pada umumnya berkaitan dengan mengakses dan mengirimkan informasi tanpa otorisasi dari pengguna. Trojan horse dapat dikategorikan sebagai spyware. 
+
+
+\section{Malware Detection}
+
+Malware merupakan singkatan dari malicious software. Malware pada umumnya didesain untuk dapat menyebarkan dirinya untuk dapat berkembang. Pada (\cite{idika2007survey}) teknik untuk mendeteksi malware dibedakan menjadi dua, yakni: signature-
+based dan anomaly-based. Terdapat bentuk khusus anomaly-based yakni specification-based. Setiap teknik memiliki jenis static, dynamic, dan hybrid.
+
+\subsection{Anomaly-based Detection}
+
+Pada (\cite{idika2007survey}) dijelaskan, anomaly-based detection memiliki dua fasa, yakni fasa training, dan fasa deteksi. Pendeteksian jenis ini memiliki kelebihan, yakni dapat mendeteksi serangan yang sebelumnya belum dikenali. Namun, deteksi jenis ini memiliki tingkat kesalahan pendeteksian yang tinggi. Anomaly based-detection melakukan pendeteksian dengan cara membuat pendekatan perilaku yang valid dilakukan oleh sebuah sistem.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=220px]{resources/anomaly_illustration.png}
+	\caption{Ilustrasi karakterisasi perilaku pada anomaly-based detection}
+	\label{fig:anomaly_illust}
+\end{figure}
+
+Gambar \ref{fig:anomaly_illust} menggambarkan bagaimana anomaly-based detection mengkarakterisasi perilaku sistem. V merupakan himpunan perilaku yang tidak bertentangan dengan requirement. V’ merupakan himpunan perilaku yang yang tidak valid. Vapprox merupakan hasil pendekatan yang dilakukan oleh anomaly-based detection.
+
+\subsection{Signature-based Detection}
+Signature-based detection dalam (\cite{idika2007survey}) merupakan teknik yang menggunakan malicious-model untuk mendeteksi malware. Kumpulan dari malicious-model (signature) menjadi knowledge base dari system pendeteksi jenis ini. Sehingga pada Gambar \ref{fig:signature_illust}, diilustrasikan bahwa S (kumpulan signature) merupakan subset dari U yang merupakan seluruh signature dari perilaku malicious. Karena keterbatasan media penyimpanan, S akan sangat kecil jika dibandingkan dengan U yang sangat besar.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=190px]{resources/signature_illustration.png}
+	\caption{Ilustrasi himpunan signature terhadap seluruh malicious signature}
+	\label{fig:signature_illust}
+\end{figure}
+
+
+\section{Iptables}
+
+\textit{Netfilter} adalah kernel Linux yang berfungsi untuk memproses paket dari jaringan, dan \textit{iptables} adalah perintah untuk mengatur \textit{Netfilter}, yang bekerja di OSI Layer 3 (\textit{Network}). Arsitektur dari \textit{iptables} dikelompokkan berdasarkan fungsinya, yaitu
+\begin{itemize}
+	\item \textit{Filter}\\
+	Digunakan untuk mengeset aturan yang mengatur keluar masuknya paket.
+	\item \textit{Network address translation} (NAT)\\
+	Digunakan dengan connection tracking untuk melakukan Network Address Translation.
+	\item \textit{Packet mangling}\\
+	Digunakan untuk memanipulasi paket.	
+\end{itemize} 
+
+Fungsi-fungsi tersebut memiliki \textit{chain} (urutan) pemrosesannya masing-masing. Aturan tersebut berisikan syarat (\textit{matches}) dan target. Syarat dari aturan tersebut akan menentukan paket mana saja yang akan terkena aturan tersebut, sementara target akan menentukan apa yang akan dilakukan oleh paket yang memenuhi syarat tersebut. Apabila tidak ada syarat (\textit{match criteria}) maka semua paket dianggap memenuhi syarat tersebut. Sebaliknya, apabila tidak ada target, maka paket tidak akan diproses. Syarat yang dapat digunakan antara lain adalah IP (\textit{Internet Protocol}) dan \textit{MAC addresses}.
+Ada beberapa built-in target yang akan dijelaskan, yaitu:
+\begin{itemize}
+	\item \textit{ACCEPT}\\
+	Mengijinkan paket untuk menuju proses selanjutnya.
+	\item \textit{DROP}\\
+	Menghentikan proses paket sepenuhnya.
+	\item \textit{QUEUE}\\
+	Mengirimkan paket ke userspace.
+	\item \textit{RETURN}\\
+	Menghentikan proses pada user-defined chain dan melanjutkan proses ke chain sebelum user-defined chain dipanggil.
+\end{itemize}
+\subsection{Hooks point}
+\textit{Iptables} mendefinisikan 5 poin didalam alur pemrosesan paket, yaitu :
+\begin{itemize}
+	\item \textit{PREROUTING}\\
+	Poin yang akan memproses paket yang baru datang dari \textit{network interface} (setelah melalui proses pengecekan \textit{checksum}).
+	\item \textit{INPUT}\\
+	Poin yang akan memproses paket yang akan dilanjutkan ke proses lokal.
+	\item \textit{FORWARD}\\
+	Poin yang akan memproses paket yang keluar masuk melalui \textit{gateway} komputer.
+	\item \textit{POSTROUTING}\\
+	Poin yang akan memproses paket yang akan meninggalkan \textit{network interface}.
+	\item \textit{OUTPUT}\\
+	Poin yang akan memproses paket yang baru saja melewati proses lokal.
+\end{itemize}
+Dalam poin-poin tersebut sudah terdapat aturan dasar (\textit{built-in chain}), dan dapat ditambahkan aturan lain yang diinginkan.
+
+\subsection{Alur pemrosesan paket}
+Fungsi-fungsi dari arsitektur \textit{iptables} tersebut disebut juga \textit{tables}, dan fungsi-fungsi tersebut memiliki alur pemrosesan dasar sebagai berikut.\\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{resources/nat_table.png}
+	\caption{Alur pemrosesan paket dan \textit{hook} yang digunakan pada tabel \textit{NAT}.}
+	\label{fig:packetflow_NAT}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{resources/filter_table.png}
+	\caption{Alur pemrosesan paket dan \textit{hook} yang digunakan pada tabel \textit{filter}.}
+	\label{fig:packetflow_filter}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{resources/mangling_table.png}
+	\caption{Alur pemrosesan paket dan \textit{hook} yang digunakan pada tabel \textit{mangling}.}
+	\label{fig:packetflow_mangling}
+\end{figure}
+
+Paket yang melewati \textit{chain} akan terkena aturan sesuai dengan urutannya. Apabila paket tersebut tidak sesuai kriteria, maka paket akan bergerak ke aturan selanjutnya. Jika paket tersebut tidak memenuhi kriteria sampai aturan yang paling akhir, maka paket tersebut akan diperlakukan sesuai dengan \textit{chain\textquotesingle s policy}. 
+Berdasarkan Gambar , urutan alur paket yang melewati \textit{tables} dan \textit{chains} dapat dilihat pada tabel-tabel berikut.
+
+\begin{table}[H]
+	\caption{Alur paket yang melewati network interface ke network interface lainnya (forwarding)}
+	\label{table:network_to_network}
+	\centering
+	\begin{tabular}{ll}
+		\hline
+		\rowcolor[HTML]{C0C0C0} 
+		table  & chain       \\ \hline
+		mangle & PREROUTING  \\
+		nat    & PREROUTING  \\
+		mangle & FORWARD     \\
+		filter & FORWARD     \\
+		mangle & POSTROUTING \\
+		nat    & POSTROUTING \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\caption{Alur paket yang melewati network interface ke proses lokal (input)}
+	\label{table:network_to_local}
+	\centering
+	\begin{tabular}{ll}
+		\hline
+		\rowcolor[HTML]{C0C0C0} 
+		table  & chain      \\ \hline
+		mangle & PREROUTING \\
+		nat    & PREROUTING \\
+		mangle & INPUT      \\
+		filter & INPUT      \\ \hline
+	\end{tabular}	
+\end{table}
+
+\begin{table}[H]
+	\caption{Alur paket yang datang dari proses lokal ke network interface (output)}
+	\label{table:local_to_network}
+	\centering
+	\begin{tabular}{ll}
+		\hline
+		\rowcolor[HTML]{C0C0C0} 
+		table  & chain       \\ \hline
+		mangle & OUTPUT      \\
+		nat    & OUTPUT      \\
+		filter & OUTPUT      \\
+		mangle & POSTROUTING \\
+		nat    & POSTROUTING \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\caption{Alur paket yang datang dari proses lokal ke proses lokal lainnya (local)}
+	\label{table:local_to_local}
+	\centering
+	\begin{tabular}{ll}
+		\hline
+		\rowcolor[HTML]{C0C0C0} 
+		table  & chain  \\ \hline
+		mangle & OUTPUT \\
+		nat    & OUTPUT \\
+		filter & OUTPUT \\
+		filter & INPUT  \\
+		mangle & INPUT  \\ \hline
+	\end{tabular}
+\end{table}

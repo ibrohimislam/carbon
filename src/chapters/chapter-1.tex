@@ -1,16 +1,59 @@
 \chapter{Pendahuluan}
 
 \section{Latar Belakang}
-\blindtext
+
+\textit{First-generation} firewall sudah tidak dapat lagi memenuhi kebutuhan keamanan. Firewall ini tidak dapat melakukan pencegahan intrusi pada level protokol yang lebih tinggi. Akibatnya, serangan-serangan dapat dilakukan meskipun suatu enterprise telah mengunakan firewall.
+
+Kekurangan yang dimiliki \textit{first-generation} firewall, menjadikan \textit{enterprise} harus penggunakan sistem lain untuk dapat mendeteksi serangan. Sistem lain seperti \textit{Intrusion Detection System} (IDS) dan \textit{Intrusion Prevention System} (IPS). Hal itu menimbulkan biaya lebih yang harus dikeluarkan oleh \textit{enterprise}.
+
+\textit{Next-generation} firewall menurut (Pescatore, 2009) menjadi solusi untuk menyelesaikan masalah ini. Next-generation firewall merupakan firewall yang memiliki fitur first-generation firewall, namun memiliki fitur-fitur IDS maupun IPS yang terintegrasi, dengan menitikberatkan pada deep packet inspection (DPI).
+
+Menurut sebuah survey dari Alcatel-Lucent strategic white paper (The Case for
+Network-based Malware Detection, 2014), solusi pengamanan client-based kurang
+efektif untuk mencegah malware. Hampir 81\% terinfeksi malware, meskipun telah
+dipasangi oleh anti-virus. Sehingga diperlukan sebuah solusi pengamanan yang
+tidak dapat di-disable dari sistem. Salah satu solusinya adalah dengan
+menggunakan network-based malware detection.
+
+Malware detection menjadi fitur penting yang diperlukan oleh sebuah sistem pengamanan. Namun, saat ini implementasi open-source firewall, yakni pfSense masih memberikan fitur native untuk melakukan deteksi malware pada \textit{layer} aplikasi.
+
+\section{Rumusan Masalah}
+Implementasi open-souce firewall (pfSense, 2017) dan (OPNsense, 2017) saat ini
+belum melakukan inspeksi tehadap application layer protocol secara generic.
+Padahal intrusi seperti malware pada umumnya sulit dideteksi pada transport-layer,
+sehingga masih sulit dilakukan.
 
 \section{Tujuan}
-\blindtext
+Tujuan dari tugas akhir ini adalah:
+\begin{enumerate}
+	\item Menentukan teknik yang extensible untuk melakukan pendeteksian malware pada network untuk diimplementasikan pada firewall open-source.
+	\item Membangun sistem pendeteksi malware pada implementasi firewall open-source.
+\end{enumerate}
 
 \section{Batasan Masalah}
-\blindtext
+Implementasi Network-Based Malware Detection pada firewall open-source
+difokuskan pada hal-hal sebagai berikut:
+\begin{enumerate}
+	\item Implementasi tidak difokuskan untuk meningkatkan performa firewall
+	setelah Network-Based Malware Detection diimplementasi.
+	\item Implementasi menggunakan komponen-komponen yang sudah ada dari perangkat lunak open-source dengan kapabilitas deep packet inspection.
+	\item Implementasi akan dibatasi untuk melakukan deteksi pada \textit{malware} WannaCry.
+\end{enumerate}
 
-\section{Hipotesis}
-\blindtext
-
-\section{Sistematika Pembahasan}
-\blindtext
+\section{Metodologi}
+Metodologi yang digunakan pada pengerjaan makalah ini, antara lain:
+\begin{enumerate}
+	\item Studi literatur. Pada studi literatur, dilakukan pencarian referensi mengenai
+	definisi-definisi pada domain next-generation firewall. Referensi juga
+	digunakan untuk mendapatkan \textit{state of the art} dari domain ini.
+	\item Analisis masalah. Dalam tahapan ini, dilakukan analisis metode apa saja
+	yang dapat dilakukan untuk mendeteksi malware dalam seuah network, dan sampai sejauh mana implementasi next-generation firewall dapat
+	menangani masalah ini.
+	\item Perancangan solusi. Hasil analisis masalah kemudian dilakukan pemilihan
+	solusi yang tepat dan cukup generic dalam mendeteksi malware.
+	\item Implementasi. Pada tahap ini hasil rancangan solusi kemudian
+	diimplementasikan pada \textit{open-source next-generation firewall} yang sudah
+	ada.
+	\item Pengujian dan analisis hasil. Pada tahap ini hasil implementasi dilakukan
+	pengujian dengan menggunakan beberapa kasus uji.
+\end{enumerate}
