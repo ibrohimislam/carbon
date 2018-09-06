@@ -105,10 +105,87 @@ Jika pada arsitektur \textit{screened host}
 \end{figure}
 
 \section{Next Generation Firewall}
+Pada masa ini, firewall terbagi menjadi 2 yaitu tradisional firewall dan new generation firewall. Hal ini terjadi karena tradisional firewall tidak lagi mumpuni untuk menahan serangan yang ada di dunia internet ini. 
+Tradisional firewall adalah firewall yang bekerja di \textit{network layer}(\cite{nicoll2004challenges}), menggunakan port dan protokol IP untuk mengontrol dan mencegah serangan dari jaringan.(\cite{zhong2012design}) Skema dari tradisional firewall ini dapat dilihat pada gambar berikut.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{resources/tradisional_firewall.png}
+	\caption{Skema tradisional firewall(\cite{zhong2012design})}
+	\label{fig:tradisional_firewall}
+\end{figure}
 
-Next Generation Firewall (NGFW) merupakan pengembangan dari first-generation firewall yang memiliki Deep Packet Inspection (DPI). Secara fungsionalitas NGFW merupakan gabungan dari IPS dan first-generation firewall. NGFW dapat dipandang sebagai IPS karena NGFW memiliki awareness terhadap application level payload. Hasil pengecekan kemudian digunakan untuk memutuskan apakah paket di-forward atau di-drop. (Pescatore, 2009)
+Firewall ini hanya mengecek header paket sesuai dengan portnya, sehingga tidak dapat mengontrol aplikasi. Tradisional firewall yang memakai \textit{deep packet inspection} (DPI) untuk menambah keamanan juga tidak terlalu berhasil, karena memunculkan limitasi dan masalah baru. Menurut (\cite{miller2011next}), masalah tersebut adalah
+\begin{itemize}
+	\item Aplikasi yang tidak seharusnya berada di jaringan diperbolehkan masuk ke jaringan.
+	\item Tidak semua paket yang harus diperiksa terperiksa
+	\item Policy management menjadi rumit dan berbelit
+	\item Performansi yang tidak memadai 
+\end{itemize}
 
-Deep packet inspection merupakan fungsionalitas yang menjadi fokus pada next-generation firewall. Hal ini yang membedakan next-generation firewall dengan first-generation firewall.
+Sementara itu, Next Generation Firewall (NGFW) merupakan pengembangan dari first-generation firewall yang memiliki Deep Packet Inspection (DPI). Secara fungsionalitas NGFW merupakan gabungan dari IPS dan first-generation firewall. NGFW dapat dipandang sebagai IPS karena NGFW memiliki awareness terhadap application level payload. Hasil pengecekan kemudian digunakan untuk memutuskan apakah paket di-forward atau di-drop. (Pescatore, 2009). New Generation Firewall adalah firewall yang berjalan diatas layer aplikasi, untuk mendeteksi apakah paket tersebut sesuai dengan user`s rule atau tidak(\cite{zhong2012design}). Skema dari new generation firewall adalah sebagai berikut.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{resources/NGFW.png}
+	\caption{Skema new generation firewall(\cite{zhong2012design})}
+	\label{fig:new_generation_firewall}
+\end{figure}
+
+Fungsi dan kemampuan utama yang dibutuhkan oleh new generation firewall adalah:
+\begin{itemize}
+	\item Identifikasi aplikasi (port, protocol, evasive techniques, atau SSL encryption) sebelum melakukan hal apapun
+	\item Menyediakan policy-based control yang lebih jelas dan granular
+	\item Secara akurat mengidentifikasi pengguna dan menggunakan informasi tersebut sebagai atribut dari policy control
+	\item Menyediakan proteksi secara real-time terhadap ancaman dari jaringan, termasuk yang beroperasi pada layer aplikasi.
+	\item Terintegrasi untuk meningkatkan kapasitas pencegahan ancaman
+\end{itemize}
+
+\subsection{Teknik Identifikasi aplikasi}
+Teknik Identifikasi aplikasi yang digunakan oleh new generation firewall adalah
+\begin{itemize}
+	\item Deteksi dan dekripsi aplikasi protokol\\
+	Untuk mendeteksi protokol aplikasi sehingga dapat dianalisis lebih lanjut
+	\item Decode aplikasi protokol\\
+	Untuk mendeteksi apakah ada aplikasi lain yang berjalan melalui protokol tersebut (tunnel), seperti Yahoo! Instant Messenger yang mungkin berada di dalam protokol HTTP
+	\item Application signatures\\
+	Untuk mengecek apakah aplikasi tersebut menggunakan port dan protokol yang sesuai dengan fungsinya.
+	\item Heuristics
+\end{itemize}
+
+\subsection{User identification}
+Teknologi ini mengidentifikasi user sehingga dapat digunakan untuk:
+\begin{itemize}
+	\item Mendapatkan visibilitas tentang siapa yang bertanggung jawab untuk semua aplikasi, konten, dan ancaman lalu lintas data pada jaringan tersebut
+	\item Mengizinkan penggunaan identitas sebagai variabel dalam access control policies.
+	\item Memfasilitasi troubleshooting/incident response
+\end{itemize}
+
+\subsection{Content identification}
+Teknologi ini membuat next generation firewall dapat mencegah ancaman secara real-time, mengontrol web surfing activities, dan memfilter file atau data. Komponen dari teknologi ini adalah:
+\begin{itemize}
+	\item Pencegahan ancaman\\
+	Komponen ini berfungsi untuk mencegah spyware, virus, dan ancaman lainnya dari jaringan. Komponen ini dibantu oleh application decoder, stream-based virus detection, spyware scanning, uniform threat signature format, dan IPS.
+	\item URL filtering\\
+	Komponen ini memfilter konten melalui URL.
+	\item Filter file dan data\\
+	Komponen ini menggunakan kelebihan dari in-depth application inspection untuk mengurangi pengiriman file dan data yang tidak terotorisasi. 
+\end{itemize}
+
+\subsection{Perbedaan performansi antara tradisional firewall dan new generation firewall}
+Pada tradisional firewall, fungsi-fungsi keamanan dilakukan secara terpisah satu sama lain, seperti yang digambarkan pada gambar . Hal ini menyebabkan penggunaan system resource yang berlebihan dan tidak efisien.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{resources/architecture_tradisional_firewall.png}
+	\caption{arsitektur proses tradisional firewall(\cite{miller2011next})}
+	\label{fig:architecture_tradisional_firewall}
+\end{figure}
+
+Sebaliknya, new generation firewall menggunakan single-pass architecture untuk mengeliminasi pengecekan paket secara repetitif, mengurangi beban pada hardware dan meminimalkan latency, seperti yang dapat dilihat pada gambar berikut.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{resources/architecture_NGFW.png}
+	\caption{arsitektur proses new generation firewall(\cite{miller2011next})}
+	\label{fig:architecture_NGFW}
+\end{figure}
 
 \section{Malware}
 \textit{Malicious software} menurut (\cite{idika2007survey}) memiliki banyak baentuk salah satunya adalah Malicious Code (MC). Menurut (\cite{attackingmalcode}), malicious code merupakan kode yang ditambahkan, diubah, atau dihilangkan dari sistem software untuk membahayakan atau mengubah fungsi yang diharapkan dapat dilakukan oleh sistem.
@@ -154,13 +231,13 @@ Signature-based detection dalam (\cite{idika2007survey}) merupakan teknik yang m
 
 \section{Iptables}
 
-\textit{Netfilter} adalah kernel Linux yang berfungsi untuk memproses paket dari jaringan, dan \textit{iptables} adalah perintah untuk mengatur \textit{Netfilter}, yang bekerja di OSI Layer 3 (\textit{Network}). Arsitektur dari \textit{iptables} dikelompokkan berdasarkan fungsinya, yaitu
+Menurut (\cite{purdy2004linux}) Netfilter adalah bagian dari kernel Linux yang berfungsi untuk memproses paket dari jaringan, dan iptables adalah perintah untuk mengatur \textit{Netfilter}, yang bekerja di OSI Layer 3 (\textit{Network}). Arsitektur dari iptables dikelompokkan berdasarkan fungsinya, yaitu
 \begin{itemize}
-	\item \textit{Filter}\\
+	\item Filter\\
 	Digunakan untuk mengeset aturan yang mengatur keluar masuknya paket.
 	\item \textit{Network address translation} (NAT)\\
 	Digunakan dengan connection tracking untuk melakukan Network Address Translation.
-	\item \textit{Packet mangling}\\
+	\item Packet mangling\\
 	Digunakan untuk memanipulasi paket.	
 \end{itemize} 
 
@@ -193,7 +270,7 @@ Ada beberapa built-in target yang akan dijelaskan, yaitu:
 Dalam poin-poin tersebut sudah terdapat aturan dasar (\textit{built-in chain}), dan dapat ditambahkan aturan lain yang diinginkan.
 
 \subsection{Alur pemrosesan paket}
-Fungsi-fungsi dari arsitektur \textit{iptables} tersebut disebut juga \textit{tables}, dan fungsi-fungsi tersebut memiliki alur pemrosesan dasar sebagai berikut.\\
+Fungsi-fungsi dari arsitektur iptables tersebut disebut juga \textit{tables}, dan fungsi-fungsi tersebut memiliki alur pemrosesan dasar sebagai berikut.\\
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{resources/nat_table.png}
