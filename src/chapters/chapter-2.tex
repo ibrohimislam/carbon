@@ -187,6 +187,33 @@ Sebaliknya, new generation firewall menggunakan single-pass architecture untuk m
 	\label{fig:architecture_NGFW}
 \end{figure}
 
+\section{Deep Packet Inspection}
+Deep Packet Inspection (DPI) adalah salah satu teknologi utama untuk mengidentifikasi dan mengotentikasi protokol dan aplikasi yang dibawa bersama IP(\cite{allot2007digging}). \textit{Standard packet inspection process} hanya mengekstrak informasi dasar dari suatu protokol seperti IP address (tujuan, sumber) dan informasi koneksi low-level lainnya, yang biasanya berada pada header paket tersebut. Inspeksi ini tidak mendapatkan informasi yang cukup untuk dapat menyimpulkan apakah aplikasi tersebut aman atau tidak. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{resources/standard_inspection.png}
+	\caption{standard packet inspection (\cite{allot2007digging})}
+	\label{fig:standard_inspection}
+\end{figure}
+Sebaliknya, DPI menyediakan informasi tentang aplikasi tersebut. Hal ini dicapai dengan menganalisis konten pada header paket dan payload paket pada suatu transaksi paket. Oleh karena itu, DPI dapat menyediakan kemampuan untuk menganalisa penggunaan jaringan dan mengoptimasi performansi jaringan. 
+
+Komponen yang digunakan untuk memberi identitas pada aplikasi dan protokol disebut signature. Signature ini dapat juga diumpamakan seperti fingerprint pada manusia, dimana tidak ada yang sama satu dengan yang lainnya. Oleh karena itu, signature digunakan untuk mengidentifikasi aplikasi dan protokol. Signature pada aplikasi harus dicek secara berkala, karena signature tersebut dapat berubah seiring aplikasi update atau revisi protokol.
+
+Walaupun signature tersebut dikembangkan dengan tujuan keunikan dan untuk mengidentifikasi suatu aplikasi atau protokol, ada kalanya signature tersebut tidak robust. Terdapat istilah \textit{false positives} dan \textit{false negatives} karena signature tersebut. \textit{False positives} merujuk pada keadaan salah mengelompokkan atau salah mengidentifikasi, seperti suatu aplikasi diidentifikasi sebagai sesuatu, namun sebenarnya bukan. \textit{False negatives} merujuk pada keadaan dimana suatu aplikasi atau protokol tidak teridentifikasi secara konsisten sebagai sesuatu yang sama. Contohnya, beberapa aplikasi akan berperilaku berbeda apabila koneksi yang dilakukan melalui proxy atau tidak. Salah satu cara untuk membuat signature tersebut menjadi lebih robust adalah dengan menggunakan beberapa pola kombinasi.
+
+\subsection{Metode analisis signature}
+Ada beberapa metode analisis yang digunakan untuk mengidentifikasi dan mengelompokkan paket, yaitu:
+\begin{itemize}
+	\item Analisis berdasarkan port\\
+	Analisis ini merupakan analisis yang paling mudah dan paling dikenal. Namun analisis ini tidak cukup untuk mengidentifikasi aplikasi sendirian, dikarenakan sudah banyak aplikasi yang memakai random port atau menyamar sebagai aplikasi lain pada port tertentu.
+	\item Analisis berdasarkan string match\\
+	Analisis ini akan mencari suatu string pada konten paket tersebut. Hal ini dilakukan karena banyak aplikasi yang menyertakan nama aplikasi tersebut pada protokolnya. 
+	\item Analisis berdasarkan numerical properties\\
+	Analisis ini melibatkan perhitungan dan karakteristik numerik pada paket tersebut, seperti payload length, banyaknya paket yang dikirim untuk respon transaksi tertentu, dan numerical offset dari suatu string dalam paket tersebut. Analisis ini juga tidak cukup berdiri sendiri untuk mengidentifikasi aplikasi.
+	\item Analisis berdasarkan perilaku dan heuristics\\
+	Analisis ini merujuk pada bagaimana biasanya protokol berperilaku dan beroperasi. Analisis heuristik pada umumnya berasal dari hasil statistik dari paket yang diamati.
+\end{itemize}
+
 \section{Malware}
 \textit{Malicious software} menurut (\cite{idika2007survey}) memiliki banyak baentuk salah satunya adalah Malicious Code (MC). Menurut (\cite{attackingmalcode}), malicious code merupakan kode yang ditambahkan, diubah, atau dihilangkan dari sistem software untuk membahayakan atau mengubah fungsi yang diharapkan dapat dilakukan oleh sistem.
 
