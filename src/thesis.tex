@@ -81,6 +81,23 @@
 \def\@kampus{PROGRAM STUDI TEKNIK INFORMATIKA\\
 	SEKOLAH TEKNIK ELEKTRO DAN INFORMATIKA\\
 	Institut Teknologi Bandung}
+
+\newcommand{\MONTH}{%
+	\ifcase\the\month
+	\or Januari% 1
+	\or Februari% 2
+	\or Maret% 3
+	\or April% 4
+	\or Mei% 5
+	\or Juni% 6
+	\or Juli% 7
+	\or Agustus% 8
+	\or September% 9
+	\or Oktober% 10
+	\or November% 11
+	\or Desember% 12
+	\fi}
+
 %\def\@maketitle{   % custom maketitle
 \newcommand{\judul}{   % custom maketitle
 
@@ -103,7 +120,7 @@ oleh\\
 \large
 \@kampus \\
 \large
-\the\year
+\MONTH\space\the\year
 
 \end{center}
 }
