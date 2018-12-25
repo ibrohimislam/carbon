@@ -2,7 +2,7 @@
 
 \section{Latar Belakang}
 
-\textit{First-generation} firewall sudah tidak dapat lagi memenuhi kebutuhan keamanan. Firewall ini tidak dapat melakukan pencegahan intrusi pada level protokol yang lebih tinggi. Akibatnya, serangan-serangan dapat dilakukan meskipun suatu enterprise telah mengunakan firewall.
+batnya, serangan-serangan dapat dilakukan meskipun suatu enterprise telah mengunakan firewall.
 
 Kekurangan yang dimiliki \textit{first-generation} firewall, menjadikan \textit{enterprise} harus penggunakan sistem lain untuk dapat mendeteksi serangan. Sistem lain seperti \textit{Intrusion Detection System} (IDS) dan \textit{Intrusion Prevention System} (IPS). Hal itu menimbulkan biaya lebih yang harus dikeluarkan oleh \textit{enterprise}.
 
@@ -18,24 +18,19 @@ menggunakan network-based malware detection.
 Malware detection menjadi fitur penting yang diperlukan oleh sebuah sistem pengamanan. Namun, saat ini implementasi open-source firewall, yakni pfSense masih memberikan fitur native untuk melakukan deteksi malware pada \textit{layer} aplikasi.
 
 \section{Rumusan Masalah}
-Implementasi open-souce firewall (pfSense, 2017) dan (OPNsense, 2017) saat ini
-belum melakukan inspeksi tehadap application layer protocol secara generic.
-Padahal intrusi seperti malware pada umumnya sulit dideteksi pada transport-layer,
-sehingga masih sulit dilakukan.
+Implementasi open-souce firewall seperti  pfSense, dan OPNsense saat ini
+belum melakukan inspeksi tehadap protokol aplikasi.
+Padahal intrusi malware sulit dideteksi pada transport-layer
+sehingga tidak dapat dilakukan tanpa mengganggu service yang ada.
 
 \section{Tujuan}
-Tujuan dari tugas akhir ini adalah:
-\begin{enumerate}
-	\item Menentukan teknik yang extensible untuk melakukan pendeteksian malware pada network untuk diimplementasikan pada firewall open-source.
-	\item Membangun sistem pendeteksi malware pada implementasi firewall open-source.
-\end{enumerate}
+Tujuan dari tugas akhir ini adalah membangun sistem penangkal malware yang menerapkan DPI pada implementasi firewall open-source.
 
 \section{Batasan Masalah}
 Implementasi Network-Based Malware Detection pada firewall open-source
 difokuskan pada hal-hal sebagai berikut:
 \begin{enumerate}
-	\item Implementasi tidak difokuskan untuk meningkatkan performa firewall
-	setelah Network-Based Malware Detection diimplementasi.
+	\item Implementasi tidak difokuskan untuk meningkatkan kinerja firewall setelah Network-Based Malware Detection diimplementasi.
 	\item Implementasi menggunakan komponen-komponen yang sudah ada dari perangkat lunak open-source dengan kapabilitas deep packet inspection.
 	\item Implementasi akan dibatasi untuk melakukan deteksi pada \textit{malware} WannaCry.
 \end{enumerate}
@@ -44,16 +39,15 @@ difokuskan pada hal-hal sebagai berikut:
 Metodologi yang digunakan pada pengerjaan makalah ini, antara lain:
 \begin{enumerate}
 	\item Studi literatur. Pada studi literatur, dilakukan pencarian referensi mengenai
-	definisi-definisi pada domain next-generation firewall. Referensi juga
+	definisi-definisi pada domain next-generation firewall, dan metode apa saja yang dapat 
+	dilakukan untuk mendeteksi serangan yang dilakukan malware. Referensi juga
 	digunakan untuk mendapatkan \textit{state of the art} dari domain ini.
-	\item Analisis masalah. Dalam tahapan ini, dilakukan analisis metode apa saja
-	yang dapat dilakukan untuk mendeteksi malware dalam seuah network, dan sampai sejauh mana implementasi next-generation firewall dapat
-	menangani masalah ini.
-	\item Perancangan solusi. Hasil analisis masalah kemudian dilakukan pemilihan
-	solusi yang tepat dan cukup generic dalam mendeteksi malware.
-	\item Implementasi. Pada tahap ini hasil rancangan solusi kemudian
-	diimplementasikan pada \textit{open-source next-generation firewall} yang sudah
-	ada.
+	\item Analisis. Dalam tahapan ini dilakukan analisis malware dan analisis gap dari
+	kakas yang sudah ada untuk membuat kakas yang dapat mendeteksi dan melakukan pencegahan
+	serangan dari sebuah malware melalui jaringan.
+	\item Perancangan solusi. Hasil analisis yang telah dilakukan dan gap yang telah diketahui,
+	dirancang sebuah kakas yang sesuai dengan kebutuhan yang muncul.
+	\item Implementasi. Pada tahap ini hasil rancangan kemudian diimplementasikan.
 	\item Pengujian dan analisis hasil. Pada tahap ini hasil implementasi dilakukan
 	pengujian dengan menggunakan beberapa kasus uji.
 \end{enumerate}
