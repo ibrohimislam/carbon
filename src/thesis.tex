@@ -13,8 +13,8 @@
 \special{papersize=210mm,297mm}
 
 % set margin
-% \usepackage{showframe}
-\usepackage[top=3cm,bottom=2.5cm,left=4cm,right=2.5cm]{geometry}
+%\usepackage{showframe}
+\usepackage[top=2.7cm,bottom=3cm,left=4cm,right=3cm]{geometry}
 
 % set font
 \usepackage{mathptmx}
@@ -54,24 +54,29 @@
 \captionsetup[table]{skip=10pt}
 
 \makeatletter
-\def\@kampus{Institut Teknologi Bandung}
+\def\@kampus{PROGRAM STUDI TEKNIK INFORMATIKA\\
+	SEKOLAH TEKNIK ELEKTRO DAN INFORMATIKA\\
+	Institut Teknologi Bandung}
 %\def\@maketitle{   % custom maketitle
 \newcommand{\judul}{   % custom maketitle
 
 \begin{center}
 \smallskip
-\LARGE \bfseries \thetitle
+\large \bfseries \thetitle
 \vfill
-\small
+\large Laporan Tugas Akhir\\
+\vfill
+Disusun sebagai syarat kelulusan tingkat sarjana\\
+\vfill
 oleh\\
-\theauthor
+\large \theauthor
 \vfill
 \begin{figure}[h]
 \centering
   	\includegraphics[width=0.15\textwidth]{resources/cover-ganesha.jpg}
 \end{figure}
 \vfill
-\Large
+\large
 \@kampus \\
 \large
 \the\year
@@ -80,8 +85,9 @@ oleh\\
 }
 \makeatother
 
-\chapterfont{\centering \Large}
-\sectionfont{\large}
+\chapterfont{\centering \large}
+\sectionfont{\normalsize}
+\subsectionfont{\normalsize}
 
 \renewcommand{\thechapter}{\Roman{chapter}}
 
@@ -91,14 +97,14 @@ oleh\\
 
 \title{IMPLEMENTASI DPI PADA IPTABLES SEBAGAI PENANGKAL INFEKSI MALWARE MELALUI JARINGAN}
 \date{}
-\author{Ibrohim Kholilul Islam\\
-%NIM
-13513090}
+\author{IBROHIM KHOLILUL ISLAM\\
+NIM : 13513090}
+
+\input{chapters/cover}
+\input{chapters/approval}
 
 \pagenumbering{roman}
 \setcounter{page}{0}
-\input{chapters/cover}
-\input{chapters/approval}
 
 \pagestyle{plain}
 
@@ -109,9 +115,10 @@ oleh\\
 \tableofcontents
 \listoffigures
 \listoftables
+\clearpage
 
 \pagenumbering{arabic}
-\setcounter{page}{0}
+\setcounter{page}{1}
 
 \input{chapters/chapter-1}
 
