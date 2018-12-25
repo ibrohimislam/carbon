@@ -42,6 +42,29 @@
 \usepackage{caption}
 \usepackage{tabularx}
 
+%remove spacing before chapter
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+{\normalfont\large\bfseries\centering}{\chaptertitlename\ \thechapter}{8pt}{\centering\large}
+\titlespacing*{\chapter}{0pt}{-20pt}{40pt}
+
+%merapikan antara nomor list dan textnya
+\usepackage{tocloft}
+\setlength{\cfttabnumwidth}{1.5cm}
+\setlength{\cftfignumwidth}{1.5cm}
+
+\setlength{\cftbeforetoctitleskip}{-20pt}
+\renewcommand{\cfttoctitlefont}{\hfill\large\bfseries}
+\renewcommand{\cftaftertoctitle}{\hfill\hfill}
+
+\setlength{\cftbeforeloftitleskip}{-20pt}
+\renewcommand{\cftloftitlefont}{\hfill\hfill\large\bfseries}
+\renewcommand{\cftafterloftitle}{\hfill\hfill}
+
+\setlength{\cftbeforelottitleskip}{-20pt}
+\renewcommand{\cftlottitlefont}{\hfill\hfill\large\bfseries}
+\renewcommand{\cftafterlottitle}{\hfill\hfill}
+
 \usepackage{listings}
 \lstset{breaklines=true,basicstyle=\ttfamily}
 
@@ -52,6 +75,7 @@
 \counterwithin{table}{section}
 
 \captionsetup[table]{skip=10pt}
+\captionsetup[figure]{name={Gambar.},labelsep=period}
 
 \makeatletter
 \def\@kampus{PROGRAM STUDI TEKNIK INFORMATIKA\\
@@ -85,7 +109,6 @@ oleh\\
 }
 \makeatother
 
-\chapterfont{\centering \large}
 \sectionfont{\normalsize}
 \subsectionfont{\normalsize}
 
@@ -111,9 +134,12 @@ NIM : 13513090}
 \input{chapters/abstract-id}
 \input{chapters/abstract-en}
 \input{chapters/forewords}
+\clearpage
 
 \tableofcontents
+\clearpage
 \listoffigures
+\clearpage
 \listoftables
 \clearpage
 
