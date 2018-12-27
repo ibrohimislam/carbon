@@ -246,73 +246,55 @@ Signature-based detection dalam (\cite{idika2007survey}) merupakan teknik yang m
 \end{figure}
 
 \section{Iptables}
+Pada(\cite{rash2007linux}) dijelaskan, Iptables firewall dikembangkan oleh NetFilter Project \textit{(http://www.netfilter.org)}, dan sudah menjadi bagian dari kernel linux sejak Januari 2001.  Pada masa ini, Iptables sudah banyak digunakan pada firewall komersial. Hal ini dikarenakan Iptables mempunyai protokol \textit{state tracking} yang komprehensif, \textit{packet application layer inspection}, pembatasan kecepatan, dan mekanisme untuk mengatur \textit{filtering policy} yang mumpuni. 
+Istilah Iptables dan Netfilter cukup membingungkan untuk banyak orang pada komunitas Linux. Menurut (\cite{purdy2004linux}) Netfilter adalah bagian dari kernel Linux yang berfungsi untuk memproses paket dari jaringan. Sementara itu,  iptables adalah perintah untuk mengatur \textit{Netfilter} yang dapat digunakan pada \textit{user-space}. 
 
-Menurut (\cite{purdy2004linux}) Netfilter adalah bagian dari kernel Linux yang berfungsi untuk memproses paket dari jaringan. Iptables adalah perintah untuk mengatur \textit{Netfilter} yang dapat digunakan pada \textit{user-space}. Arsitektur dari iptables dikelompokkan berdasarkan fungsinya, yaitu
-\begin{itemize}
-	\item Filter\\
-	Digunakan untuk mengatur keluar masuknya paket.
-	\item \textit{Network address translation} (NAT)\\
-	Digunakan dengan \textit{connection tracking} untuk melakukan Network Address Translation (NAT).
-	\item Packet mangling\\
-	Digunakan untuk memanipulasi paket.	
-\end{itemize} 
-
-Fungsi-fungsi tersebut memiliki \textit{chain} (urutan) pemrosesannya masing-masing. Aturan tersebut berisikan syarat (\textit{matches}) dan target. Syarat dari aturan tersebut akan menentukan paket mana saja yang akan terkena aturan tersebut, sementara target akan menentukan apa yang akan dilakukan oleh paket yang memenuhi syarat tersebut. Apabila tidak ada syarat (\textit{match criteria}) maka semua paket dianggap memenuhi syarat. Sebaliknya, apabila tidak ada target, maka paket tidak akan diproses. Syarat yang dapat digunakan antara lain adalah IP (\textit{Internet Protocol}) dan \textit{MAC addresses}.
-Netfilter memiliki beberapa \textit{built-in target}, yaitu:
-\begin{itemize}
-	\item \textit{ACCEPT}\\
-	Mengijinkan paket untuk menuju proses selanjutnya.
-	\item \textit{DROP}\\
-	Menghentikan proses paket sepenuhnya.
-	\item \textit{QUEUE}\\
-	Mengirimkan paket ke userspace.
-	\item \textit{RETURN}\\
-	Menghentikan proses pada user-defined chain dan melanjutkan proses ke chain sebelum user-defined chain dipanggil.
-\end{itemize}
-\subsection{Hooks point}
-\textit{Netfilter} memiliki 5 poin didalam alur pemrosesan paket, yaitu :
-\begin{itemize}
-	\item \textit{PREROUTING}\\
-	Poin yang akan memproses paket yang baru datang dari \textit{network interface} (setelah melalui proses pengecekan \textit{checksum}).
-	\item \textit{INPUT}\\
-	Poin yang akan memproses paket yang akan dilanjutkan ke proses lokal.
-	\item \textit{FORWARD}\\
-	Poin yang akan memproses paket yang keluar masuk melalui \textit{gateway} komputer.
-	\item \textit{POSTROUTING}\\
-	Poin yang akan memproses paket yang akan meninggalkan \textit{network interface}.
-	\item \textit{OUTPUT}\\
-	Poin yang akan memproses paket yang baru saja melewati proses lokal.
-\end{itemize}
-aturan dasar (\textit{built-in chain}), dan dapat ditambahkan aturan lain yang diinginkan.
+Suatu iptables policy dibuat dari suatu set aturan yang akan mengatur rute dari suatu paket. Setiap set aturan tersebut diaplikasikan pada chain didalam satu table tersendiri. Table tersebut dikelompokan berdasarkan fungsinya, yaitu filter, \textit{Network address translation} (NAT) dan Packet mangling. Fungsi dari filter adalah untuk mengatur keluar masuknya paket yang masuk ke komputer tersebut. Fungsi NAT digunakan dengan \textit{connection tracking} untuk melakukan Network Address Translation (NAT). Dan yang terakhir, fungsi Packet mangling digunakan untuk menanipulasi paket.
 
 \subsection{Alur pemrosesan paket}
-Fungsi-fungsi dari arsitektur iptables tersebut disebut juga \textit{tables}, dan fungsi-fungsi tersebut memiliki alur pemrosesan dasar sebagai berikut.\\
+Setiap table memiliki \textit{chain} (urutan) pemrosesannya masing-masing. Alur pemrosesan dasar tersebut dapat dilihat pada gambar-gambar dibawah ini.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{resources/nat_table.png}
-	\caption{Alur pemrosesan paket dan \textit{hook} yang digunakan pada tabel \textit{NAT}.}
+	\caption{Alur pemrosesan paket dan \textit{hook} yang digunakan pada tabel \textit{NAT}. (\cite{purdy2004linux})}
 	\label{fig:packetflow_NAT}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{resources/filter_table.png}
-	\caption{Alur pemrosesan paket dan \textit{hook} yang digunakan pada tabel \textit{filter}.}
+	\caption{Alur pemrosesan paket dan \textit{hook} yang digunakan pada tabel \textit{filter}.(\cite{purdy2004linux})}
 	\label{fig:packetflow_filter}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{resources/mangling_table.png}
-	\caption{Alur pemrosesan paket dan \textit{hook} yang digunakan pada tabel \textit{mangling}.}
+	\caption{Alur pemrosesan paket dan \textit{hook} yang digunakan pada tabel \textit{mangling}.(\cite{purdy2004linux})}
 	\label{fig:packetflow_mangling}
+\end{figure}
+
+Poin-poin yang terdapat pada gmabar-gambar diatas adalah hook poin yang memiliki fungsi-fungsi tersendiri.\textit{Netfilter} memiliki 5 poin (\textit{hook}) didalam alur pemrosesan paket, yaitu : \textit{PREROUTING}, \textit{INPUT}, \textit{FORWARD}, \textit{POSTROUTING}, \textit{POSTROUTING}, dan  \textit{OUTPUT}. 
+Poin \textit{PREROUTING} akan memproses paket yang baru datang dari \textit{network interface} (setelah melalui proses pengecekan \textit{checksum}).
+Poin \textit{INPUT} akan memproses paket yang akan dilanjutkan ke proses lokal.
+Poin \textit{FORWARD} akan memproses paket yang keluar masuk melalui \textit{gateway} komputer.
+Poin \textit{POSTROUTING} akan memproses paket yang akan meninggalkan \textit{network interface}.
+Poin \textit{OUTPUT} akan memproses paket yang baru saja melewati proses lokal.
+
+
+Built-in chain yang paling umum dipakai untuk membuat firewall adalah INPUT, OUTPUT dan FORWARD, yang berada pada filter table. INPUT chain akan dijalankan satu-persatu oleh paket yang seharusnya memasuki sistem lokal, sementara OUTPUT chain akan dijalankan satu persatu oleh paket yang berasal dari sistem lokal tersebut. Sedangkan FORWARD chain, oleh paket yang melewati sistem tersebut yang bukan ditujukan untuk sistem lokal. Untuk lebih jelasnya, dapat dilihat pada gambar dibawah ini (\ref{fig:iptables_packet_flow}). 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{resources/iptables_packet_flow.png}
+	\caption{Contoh alur pemrosesan paket yang melewati tabel NAT dan tabel filter.(\cite{rash2007linux})}
+	\label{fig:iptables_packet_flow}
 \end{figure}
 
 Paket yang melewati \textit{chain} akan terkena aturan sesuai dengan urutannya. Apabila paket tersebut tidak sesuai kriteria, maka paket akan bergerak ke aturan selanjutnya. Jika paket tersebut tidak memenuhi kriteria sampai aturan yang paling akhir, maka paket tersebut akan diperlakukan sesuai dengan \textit{chain\textquotesingle s policy}. 
 Berdasarkan Gambar , urutan alur paket yang melewati \textit{tables} dan \textit{chains} dapat dilihat pada tabel-tabel berikut.
 
 \begin{table}[H]
-	\caption{Alur paket yang melewati network interface ke network interface lainnya (forwarding)}
+	\caption{Alur paket yang melewati network interface ke network interface lainnya (forwarding) (\cite{purdy2004linux})}
 	\label{table:network_to_network}
 	\centering
 	\begin{tabular}{ll}
@@ -329,7 +311,7 @@ Berdasarkan Gambar , urutan alur paket yang melewati \textit{tables} dan \textit
 \end{table}
 
 \begin{table}[H]
-	\caption{Alur paket yang melewati network interface ke proses lokal (input)}
+	\caption{Alur paket yang melewati network interface ke proses lokal (input)(\cite{purdy2004linux})}
 	\label{table:network_to_local}
 	\centering
 	\begin{tabular}{ll}
@@ -344,7 +326,7 @@ Berdasarkan Gambar , urutan alur paket yang melewati \textit{tables} dan \textit
 \end{table}
 
 \begin{table}[H]
-	\caption{Alur paket yang datang dari proses lokal ke network interface (output)}
+	\caption{Alur paket yang datang dari proses lokal ke network interface (output) (\cite{purdy2004linux})}
 	\label{table:local_to_network}
 	\centering
 	\begin{tabular}{ll}
@@ -360,7 +342,7 @@ Berdasarkan Gambar , urutan alur paket yang melewati \textit{tables} dan \textit
 \end{table}
 
 \begin{table}[H]
-	\caption{Alur paket yang datang dari proses lokal ke proses lokal lainnya (local)}
+	\caption{Alur paket yang datang dari proses lokal ke proses lokal lainnya (local)(\cite{purdy2004linux})}
 	\label{table:local_to_local}
 	\centering
 	\begin{tabular}{ll}
@@ -374,3 +356,10 @@ Berdasarkan Gambar , urutan alur paket yang melewati \textit{tables} dan \textit
 		mangle & INPUT  \\ \hline
 	\end{tabular}
 \end{table}
+\subsection{Matches dan Target}
+Setiap Iptables mempunyai satu set aturan berisikan syarat (\textit{matches}) dan target. Syarat dari aturan tersebut akan menentukan paket mana saja yang akan terkena aturan tersebut, sementara target akan menentukan apa yang akan dilakukan oleh paket yang memenuhi syarat tersebut. Apabila tidak ada syarat (\textit{match criteria}) maka semua paket dianggap memenuhi syarat. Sebaliknya, apabila tidak ada target, maka paket tidak akan diproses. Syarat yang dapat digunakan antara lain adalah IP (\textit{Internet Protocol}) dan \textit{MAC addresses}.
+Netfilter memiliki beberapa \textit{built-in target}, yaitu: \textit{ACCEPT}, \textit{DROP}, \textit{QUEUE}, dan \textit{RETURN}. 
+\textit{ACCEPT} akan mengijinkan paket untuk menuju proses selanjutnya,
+\textit{DROP} akan menghentikan proses paket sepenuhnya,
+\textit{QUEUE}akan mengirimkan paket ke userspace, dan 
+\textit{RETURN}akan menghentikan proses pada user-defined chain dan melanjutkan proses ke chain sebelum user-defined chain dipanggil.
