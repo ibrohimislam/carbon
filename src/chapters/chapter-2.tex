@@ -1,47 +1,42 @@
 \chapter{Tinjauan Pustaka}
 
-\section{Network Border Security}
-Pada (Strebe, 2004) border-security secara teori harus memiliki measures sebagai
-berikut:
+Pada bab ini berisi hasil tinjauan pustaka yang menjadi dasar analisis dan perancangan pada BAB III. Bab ini secara garis besar berupa teori keamanan perbatasan jaringan, tinjauan pustaka mengenai permasalahan yang dihadapi, solusi teoritis, dan tinjauan pustaka yang berkaitan dengan perancangan solusi. Solusi teoritis berupa klasifikasi deteksi intrusi, yakni \textit{anomaly-based} dan \textit{signature-based}.
+
+\section{\textit{Network Border Security}}
+
+Seperti dalam dunia nyata, sebuah keamanan dijaga pada sebuah wilayah tertentu. Pada sebuah jaringan border-security memisahkan jaringan \textit{internal} dan \textit{external}. Jaringan \textit{internal} sebagai yang akan dilindungi, dan memisahkannya dengan external network menggunakan sebuah gateway border. Pada (Strebe, 2004) border-security secara teori harus memiliki \textit{measures} sebagai berikut:
+
 \begin{enumerate}
 	\item \textit{Control every crossing}
 	
 	Border security harus melakukan pengecekan untuk setiap lalu lintas data antara internal network dan external network. Sebuah koneksi antara internal network dan external network yang tidak dilakukan pengecekan
-	dapat menjadi celah untuk terjadinya serangan.
+	dapat menjadi celah untuk terjadinya serangan. Hal ini dapat dilakukan dengan cara menempatkan firewall pada setiap batas jaringan.
 	
 	\item \textit{Apply the same policy universally}
 	
-	Sebuah control untuk sebuah lalu lintas data tertentu harus dilakukan sama untuk seluruh hubungan yang terjadi antara internal network dan external network. Hal ini membutuhkan penerapan menyeluruh, karena efek dari penerapan ini akan bergantung pada penerapan yang terlemah.
+	Sebuah control untuk sebuah lalu lintas data tertentu harus dilakukan sama untuk seluruh hubungan yang terjadi antara internal network dan external network. Hal ini membutuhkan penerapan menyeluruh, karena efek dari penerapan ini akan bergantung pada penerapan yang terlemah. Jika dibutuhkan perbedaan tingkat keamanan, bisa dilakukan dengan memisahkan jaringan yang memerlukan perbedaan tingkat. Salah satunya seperti yang dilakukan pada DMZ.
 	
 	\item \textit{Deny by default}
 	
-	Seluruh keterhubungan hanya akan memperbolehkan lalu lintas data yang ada pada whitelist. Penerapan ini perlu dilakukan untuk lalu lintas ke luar	maupun ke dalam firewall.
+	Seluruh keterhubungan hanya akan memperbolehkan lalu lintas data yang ada pada whitelist. Penerapan ini perlu dilakukan untuk lalu lintas ke luar	maupun ke dalam firewall. Jika sebaliknya diterapkan \textit{allow by default}, ketika malware dengan jenis trojan tanpa sengaja dijalankan pada jaringan internal, malware dapat dengan mudah melakukan koneksi ke luar. Misal untuk mengirimkan data yang seharusnya dilindungi.
 	
 	\item \textit{Hide as much as information as possible}
 	
-	Penyembunyian data interior dari sebuah network perlu dilakukan. Hal ini digunakan untuk mencegah penyerang mendapatan informasi internal network.
+	Penyembunyian data interior dari sebuah network perlu dilakukan. Hal ini digunakan untuk mencegah penyerang mendapatan informasi jaringan internal. Mendapatkan informasi mengenai jaringan internal merupakan langkah awal yang dilakukan \textit{hacker}. Jika informasi ini didapatkan, hacker dapat menggunakan untuk berbagai macam, seperti \textit{inserting-traffic at IDS} (\cite{marpaung2012survey}).
 	
 \end{enumerate}
 
 \section{Firewall}
-Firewall merupakan hardware, software atau kombinasi keduanya yang digunakan untuk melakukan monitoring dan filter terhadap lalu lintas data yang masuk atau keluar dari sebuah jaringan yang berusaha dilindungi. (Kizza, 2005)
-
-Menurut (Stallings, 2012) \textit{design goal firewall} sebagai berikut:
-\begin{itemize}
-	\item Seluruh lalu lintas data dari dalam ke luar ataupun sebaliknya, harus melalui
-	firewall.
-	\item Hanya lalu lintas data yang terotorisasi yang dapat melalui firewall.
-	\item Firewall merupakan system yang kebal terhaadap penetration.
-\end{itemize}
+Firewall merupakan hardware, software atau kombinasi keduanya yang digunakan untuk melakukan monitoring dan filter terhadap lalu lintas data yang masuk atau keluar dari sebuah jaringan yang berusaha dilindungi (Kizza, 2005). Menurut (Stallings, 2012) \textit{design goal firewall} sebagai berikut: 
+Seluruh lalu lintas data dari dalam ke luar ataupun sebaliknya harus melalui firewall;
+Hanya lalu lintas data yang terotorisasi yang dapat melalui firewall;
+dan firewall merupakan system yang kebal terhaadap penetration.
 
 Kekuatan dan kelemahan dari firewall menurut (Peterson, 2012):
-\begin{itemize}
-	\item Firewall dapat dideploy unilaterally
-	\item Firewall tidak dapat membatasi akses antara host yang berada dalam internal-network
-	\item Jika pihak diberikan akses ke internal-network, maka pihak tersebut
-	menjadi security vulnerability.
-	\item Bug pada firewall yang dapat diakses dari internal-network dapat menjadi masalah serius.
-\end{itemize}
+Firewall dapat dideploy unilaterally;
+Firewall tidak dapat membatasi akses antara host yang berada dalam internal-network;
+Jika pihak diberikan akses ke internal-network, maka pihak tersebut menjadi security vulnerability;
+Dan bug pada firewall yang dapat diakses dari internal-network dapat menjadi masalah serius.
 
 Firewall saat ini yang pada umumnya memiliki tipe sebagai berikut:
 
@@ -49,18 +44,17 @@ Firewall saat ini yang pada umumnya memiliki tipe sebagai berikut:
 	\item \textit{Packet filtering firewall}
 	\textit{Packet filtering firewall}
 	
-	merupakan firewall yang menggunakan informasi dari protokol IP untuk menentukan apakah dilakukan teruskan atau buang untuk lalu lintas data masuk maupun keluar.
+	Merupakan firewall yang menggunakan informasi dari protokol IP untuk menentukan apakah dilakukan teruskan atau buang untuk lalu lintas data masuk maupun keluar.
 	
 	\item \textit{Application proxy firewall}
 	
 	Application proxy firewall atau application gateway merupakan firewall yang digunakan pada application layer untuk sebuah protocol tertentu.
-	
 \end{enumerate}
 
-\section{Arsitektur Firewall}
+\subsection{Arsitektur Firewall}
 Firewall pada implementasinya dapat ditempatkan dengan beberapa arsitektur menurut (\cite{zwicky2000building}).
 
-\subsection{Arsitektur \textit{Dual-Homed Host}}
+\subsubsection{Arsitektur \textit{Dual-Homed Host}}
 
 Arsitektur \textit{dual-homed host} merupakan dibangun dengan menggunakan komputer \textit{dual-homed host}, yakni sebuah komputer yang terhubung dengan dua atau lebih jaringan. Komputer ini dapat bekerja sebagai router antara kedua jaringan yang terhubung ke komputer tersebut. Namun, untuk mengimplemntasi firewall dengan arsitektur \textit{dual-homed host} fungsi routing ini tidak difungsikan. Sehingga tidak ada data yang dapat dikirimkan langsung antar kedua jaringan. Jadi untuk setiap paket yang akan dikirimkan dari jaringan internal ke jaringan luar harus melalui \textit{dual-homed host}, dan dari jaringan luar ke jaringan dalam juga harus melalui \textit{dual-homed host}. Sehingga susunan komponen pada jaringan tersebut seperti pada gambar \ref{fig:dual_homed}
 
@@ -71,7 +65,7 @@ Arsitektur \textit{dual-homed host} merupakan dibangun dengan menggunakan komput
 	\label{fig:dual_homed}
 \end{figure}
 
-\subsection{Arsitektur \textit{Screened Host}}
+\subsubsection{Arsitektur \textit{Screened Host}}
 
 Berbeda dengan arsitektur \textit{dual-homed host} yang memberikan service dari host yang terhubung ke beberapa jaringan dengan fungsi tidak mengaktifkan fungsi routing, arsitektur \textit{screened host} memberikan layanan dari host yang hanya terhubung ke internal network dan menggunakan router terpisah seperti pada  gambar \ref{fig:screened_host}. Pada arsitektur ini, keamanan dijaga oleh packet filtering, dengan melakukan konfigurasi berikut:
 
@@ -89,7 +83,7 @@ Namun pada pada arsitektur ini, jaringan internal sangat mudah diserang dari hos
 	\label{fig:screened_host}
 \end{figure}
 
-\subsection{Arsitektur \textit{Screened Subnet}}
+\subsubsection{Arsitektur \textit{Screened Subnet}}
 
 Arsitektur \textit{screened subnet} memiliki layer tambahan dibandingkan dengan arsitektur \textit{screened host} dengan memisahkan internal network lebih jauh dari Internet.
 
@@ -172,12 +166,13 @@ Teknologi ini membuat next generation firewall dapat mencegah ancaman secara rea
 Pada tradisional firewall, fungsi-fungsi keamanan dilakukan secara terpisah satu sama lain, seperti yang digambarkan pada gambar \ref{fig:architecture_tradisional_firewall}. Hal ini menyebabkan penggunaan system resource yang berlebihan dan tidak efisien.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{resources/architecture_tradisional_firewall.png}
+	\includegraphics[width=8cm]{resources/architecture_tradisional_firewall.png}
 	\caption{arsitektur proses tradisional firewall(\cite{miller2011next})}
 	\label{fig:architecture_tradisional_firewall}
 \end{figure}
 
 Sebaliknya, new generation firewall menggunakan single-pass architecture untuk mengeliminasi pengecekan paket secara repetitif, mengurangi beban pada hardware dan meminimalkan latency, seperti yang dapat dilihat pada gambar berikut.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{resources/architecture_NGFW.png}
@@ -224,7 +219,7 @@ Trojan horse merupakan malicious code yang tambahkan oleh desainer dalam sebuah 
 
 \section{Malware Detection}
 
-Malware merupakan singkatan dari malicious software. Malware pada umumnya didesain untuk dapat menyebarkan dirinya untuk dapat berkembang. Pada (\cite{idika2007survey}) teknik untuk mendeteksi malware dibedakan menjadi dua, yakni: signature-
+Pada (\cite{idika2007survey}) teknik untuk mendeteksi malware dibedakan menjadi dua, yakni: signature-
 based dan anomaly-based. Terdapat bentuk khusus anomaly-based yakni specification-based. Setiap teknik memiliki jenis static, dynamic, dan hybrid.
 
 \subsection{Anomaly-based Detection}
