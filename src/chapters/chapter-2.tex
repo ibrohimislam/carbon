@@ -122,7 +122,7 @@ Sementara itu, Next Generation Firewall (NGFW) merupakan pengembangan dari first
 	\label{fig:new_generation_firewall}
 \end{figure}
 
-Fungsi dan kemampuan utama yang dibutuhkan oleh new generation firewall adalah:
+Oleh karena itu, fungsi dan kemampuan utama yang dibutuhkan oleh new generation firewall adalah:
 \begin{itemize}
 	\item Identifikasi aplikasi (port, protocol, evasive techniques, atau SSL encryption) sebelum melakukan hal apapun
 	\item Menyediakan policy-based control yang lebih jelas dan granular
@@ -131,35 +131,39 @@ Fungsi dan kemampuan utama yang dibutuhkan oleh new generation firewall adalah:
 	\item Terintegrasi untuk meningkatkan kapasitas pencegahan ancaman
 \end{itemize}
 
-\subsection{Teknik Identifikasi aplikasi}
-Teknik Identifikasi aplikasi yang digunakan oleh new generation firewall adalah
+Identifikasi yang digunakan pada NGFW adalah \textit{application identification}, \textit{user identification}, dan \textit{content identification}. Application identification akan mengidentifikasi suatu aplikasi melalui port dan protocolnya, signatures dan perilaku dari aplikasi tersebut. User identification bertugas untuk mengidentifikasi user yang mengunakan jaringan tersebut. Sementara content identification akan mengidentifikasi melalui isi data yang dibawa oleh lalu lintas data tersebut. \\
+
+\noindent\textbf{Application identification}\\
+Karena NGFW berjalan pada level aplikasi, maka penidentifikasian aplikasi adalah langkah awal yang sangat penting. Salah satu cara yang dipakai oleh tradisional firewall adalah mengindentifikasi port dan protocolnya, namun teknik tersebut tidaklah lagi cukup. Maka, teknik Identifikasi aplikasi yang digunakan oleh new generation firewall adalah 
 \begin{itemize}
 	\item Deteksi dan dekripsi aplikasi protokol\\
-	Untuk mendeteksi protokol aplikasi sehingga dapat dianalisis lebih lanjut
+	Untuk mendeteksi protokol aplikasi sehingga dapat dianalisis lebih lanjut. Contohnya pada suatu HTTP, apakah menggunakan SSL atau tidak, sehingga lalu lintas data dapat dianalisis lebih jauh. 
 	\item Decode aplikasi protokol\\
-	Untuk mendeteksi apakah ada aplikasi lain yang berjalan melalui protokol tersebut (tunnel), seperti Yahoo! Instant Messenger yang mungkin berada di dalam protokol HTTP
+	Untuk mendeteksi apakah protokol tersebut benar-benar digunakan oleh aplikasi yang semestinya, atau  ada aplikasi lain yang berjalan melalui protokol tersebut (tunnel).Contohnya seperti Yahoo! Instant Messenger yang mungkin berada di dalam protokol HTTP.
 	\item Application signatures\\
-	Untuk mengecek apakah aplikasi tersebut menggunakan port dan protokol yang sesuai dengan fungsinya.
-	\item Heuristics
+	Untuk mengecek apakah aplikasi tersebut menggunakan port dan protokol
+	yang sesuai dengan fungsinya. Identifikasi ini mengecek melalui atribute atau karakteristik unik pada kontennya. Identifikasi ini juga mempunyai kemampuan untuk mengidentifikasi fungsi-fungsi spesifik didalam aplikasi, seperti transfer file.
+	\item Heuristics\\
+	Pada lalu lintas data yang menghindari identifikasi melalui analisis signature, maka analisis heuristik yang akan dilakukan oleh NGFW. Contoh dari penggunaan identifikasi ini adalah pada aplikasi P2P atau VoIP yang mengunakan enkripsi khusus pada aplikasinya. 
 \end{itemize}
 
-\subsection{User identification}
-Teknologi ini mengidentifikasi user sehingga dapat digunakan untuk:
+\noindent\textbf{User identification}\\
+Teknologi ini memanfaatkan IP address untuk mengidentifikasi suatu user, untuk mengatur visibilitas dan kontrol suatu aktivitas pada jaringan. Teknologi ini dapat digunakan untuk:
 \begin{itemize}
 	\item Mendapatkan visibilitas tentang siapa yang bertanggung jawab untuk semua aplikasi, konten, dan ancaman lalu lintas data pada jaringan tersebut
 	\item Mengizinkan penggunaan identitas sebagai variabel dalam access control policies.
 	\item Memfasilitasi troubleshooting/incident response
 \end{itemize}
 
-\subsection{Content identification}
+\noindent\textbf{Content identification}\\
 Teknologi ini membuat next generation firewall dapat mencegah ancaman secara real-time, mengontrol web surfing activities, dan memfilter file atau data. Komponen dari teknologi ini adalah:
 \begin{itemize}
 	\item Pencegahan ancaman\\
 	Komponen ini berfungsi untuk mencegah spyware, virus, dan ancaman lainnya dari jaringan. Komponen ini dibantu oleh application decoder, stream-based virus detection, spyware scanning, uniform threat signature format, dan IPS.
 	\item URL filtering\\
-	Komponen ini memfilter konten melalui URL.
+	Komponen ini memfilter konten melalui URL. Memiliki database berisikan URL yang terintergrasi membuat para administrator dapat memonitor dan mengatur aktivitas pengguna jaringan tersebut. 
 	\item Filter file dan data\\
-	Komponen ini menggunakan kelebihan dari in-depth application inspection untuk mengurangi pengiriman file dan data yang tidak terotorisasi. 
+	Komponen ini menggunakan kelebihan dari in-depth application inspection untuk mengurangi pengiriman file dan data yang tidak terotorisasi. Kelebihan ini juga termasuk dengan memblok file sesuai tipe file yang sebenarnya, tidak hanya melihat extensionnya, dan juga untuk mengatur pengiriman data-data yang sensitif seperti nomor kartu kredit. 
 \end{itemize}
 
 \subsection{Perbedaan performansi antara tradisional firewall dan new generation firewall}
