@@ -1,1 +1,55 @@
 \chapter{Instrumen Pengujian}
+
+Lampiran ini berisi instrumen pengujian yang digunakan untuk melakukan pengumpulan data. Pengumpulan data dilakukan dengan otomasi pada \textit{hypervisor} yang menggunakan \verb|qemu|. Otomasi dilakukan untuk mengumpulkan data dalam bentuk \verb|pcap|. Lampiran ini ditambahkan untuk mempermudah pembaca untuk mendapatkan data seperti yang dilakukan pada penelitian ini.
+
+\section{start.sh}
+
+Script ini digunakan untuk melakukan otomasi untuk menghidupkan \textit{instance virtual machine}, mengirimkan perintah capture, menghentikan \textit{instance virtual machine} dan mengatur kembali keadaan \textit{instance virtual machine}. Menghidupkan dan menghentikan instance virtual machine dilakukan dengan perintah \verb|virsh|. Mengirimkan perintah capture dengan melakukan \verb|SSH| ke firewall. Bagian mengatur kembali keadaan dengan menghapus image, dan menyalin dari master.
+
+\begin{lstlisting}[language=Bash]
+#!/bin/bash
+echo "starting..."
+for i in `seq 1 10`; do virsh start ibrohim-winsrv-$i; done;
+echo "done."
+
+sleep 5m;
+ssh root@167.205.3.202 "screen -dm bash capture.sh"
+sleep 1m;
+
+virsh start ibrohim-wannacry-1
+sleep 30m;
+virsh destroy ibrohim-wannacry-1
+
+echo "stopping..."
+for i in `seq 1 10`; do virsh destroy ibrohim-winsrv-$i; done;
+echo "done."
+
+echo "cleanup..."
+for i in `seq 1 10`; do rm -vf ibrohim-winsrv-$i.img; done;
+rm -vf ibrohim-wannacry.img
+echo "done."
+
+echo "cloning..."
+for i in `seq 1 10`; do cp -v ibrohim-winsrv-master.img ibrohim-winsrv-$i.img; done;
+cp -v ibrohim-wannacry-master.img ibrohim-wannacry.img
+echo "done."
+\end{lstlisting}
+
+\section{capture.sh}
+
+Script ini digunakan untuk melakukan \textit{packet capture}. \textit{Packet capture} dilakukan dengan menggunakan perintah \verb|tcpdump|.
+
+\begin{lstlisting}[language=Bash]
+#!/bin/bash
+i="1"
+while [ -f output.$i.pcap ]; do let "i++"; done;
+
+file=output.$i.pcap
+
+echo "output: $file"
+echo "start capturing..."
+tcpdump -s0 -vv -w $file &
+sleep 30m; kill $!
+echo "done."
+\end{lstlisting}
+

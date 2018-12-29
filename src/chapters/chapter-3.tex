@@ -194,9 +194,14 @@ Berikut tabel \ref{table:software_requirement} yang merangkum kebutuhan perangka
 
 Perancangan dilakukan dengan menggunakan framework NetFilter. NetFilter merupakan framework native yang dimiliki oleh Linux untuk melakukan pemrosesan paket.
 
-\subsection{Diagram Kelas}
 
-Dengan menggunakan framework netfilter, untuk membuat kakas analisis paket diperlukan \verb|xt_match| dan \verb|xtables_match|.
+\subsection{Arsitektur Sistem}
+
+Arsitektur sistem 
+
+\subsection{Struktur Internal Sistem}
+
+Dengan menggunakan framework netfilter, untuk membuat kakas analisis paket diperlukan \verb|xt_match| dan \verb|xtables_match| seperti pada diagram kelas \ref{fig:class_diagram}.
 
 \begin{figure}[H]
 	\centering
@@ -208,6 +213,10 @@ Dengan menggunakan framework netfilter, untuk membuat kakas analisis paket diper
 \verb|xtables_match| merupakan sebuah struct yang memiliki properti \verb|help|, \verb|init|, \verb|parse|, \verb|final_check|, \verb|print|, \verb|save|, \verb|extra_opts| yang merupakan method yang akan diinvoke ketika melakukan manipulasi terhadap rule iptables.
 
 \verb|xt_match| merupakan sebuah struct yang memiliki properti \verb|match|, \verb|checkentry|, dan \verb|destroy| yang akan diinvoke pada kernel space ketika sebuah paket melewati hook dan kemudian melakukan match terhadap modul yang diimplementasi. FUngsi \verb|match| merupakan bagian yang menentukan apakah sebauh packet match dengan parameter-parameter yang ada pada rule.
+
+\section{Perancangan State Machine dengan Iptables}
+
+
 
 \section{Perancangan Rule dengan Iptables}
 
