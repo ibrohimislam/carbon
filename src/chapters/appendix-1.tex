@@ -2,7 +2,70 @@
 
 Lampiran ini berisi instrumen pengujian yang digunakan untuk melakukan pengumpulan data. Pengumpulan data dilakukan dengan otomasi pada \textit{hypervisor} yang menggunakan \verb|qemu|. Otomasi dilakukan untuk mengumpulkan data dalam bentuk \verb|pcap|. Lampiran ini ditambahkan untuk mempermudah pembaca untuk mendapatkan data seperti yang dilakukan pada penelitian ini.
 
-\section{start.sh}
+\section{Konfigurasi}
+
+Dalam instrumen pengujian yang digunakan untuk pengumpulan data terdapat beberapa konfigurasi penting, yakni: bridge, dhcp server dan transparent firewall.
+
+\subsection{/etc/dhcp/dhcpd.conf}
+
+\begin{lstlisting}
+option domain-name "local";
+option domain-name-servers dhcp.local;
+default-lease-time 600;
+max-lease-time 7200;
+authoritative;
+
+subnet 192.168.1.0 netmask 255.255.255.0 {
+	range dynamic-bootp 192.168.1.100 192.168.1.254;
+	option broadcast-address 192.168.1.255;
+	option routers 192.168.1.1;
+}
+\end{lstlisting}
+
+\subsection{/etc/sysconfig/network-scripts/ifcfg-br0}
+
+\begin{lstlisting}
+DEVICE=br0
+TYPE=Bridge
+IPADDR=192.168.1.1
+NETMASK=255.255.255.0
+ONBOOT=yes
+BOOTPROTO=none
+NM_CONTROLLED=no
+DELAY=0
+\end{lstlisting}
+
+\subsection{/etc/sysconfig/network-scripts/ifcfg-eth0}
+
+\begin{lstlisting}
+TYPE=Ethernet
+DEVICE=eth0
+BOOTPROTO=none
+ONBOOT=yes
+NM_CONTROLLED=no
+BRIDGE=br0
+\end{lstlisting}
+
+\subsection{/etc/sysconfig/network-scripts/ifcfg-eth1}
+
+\begin{lstlisting}
+TYPE=Ethernet
+DEVICE=eth1
+BOOTPROTO=none
+ONBOOT=yes
+NM_CONTROLLED=no
+BRIDGE=br0
+\end{lstlisting}
+
+\subsection{Konfigurasi Khusus Transparent Firewall}
+
+\begin{lstlisting}
+echo 1 > /proc/sys/net/bridge/bridge-nf-call-iptables
+\end{lstlisting}
+
+\section{Otomasi}
+
+\subsection{start.sh}
 
 Script ini digunakan untuk melakukan otomasi untuk menghidupkan \textit{instance virtual machine}, mengirimkan perintah capture, menghentikan \textit{instance virtual machine} dan mengatur kembali keadaan \textit{instance virtual machine}. Menghidupkan dan menghentikan instance virtual machine dilakukan dengan perintah \verb|virsh|. Mengirimkan perintah capture dengan melakukan \verb|SSH| ke firewall. Bagian mengatur kembali keadaan dengan menghapus image, dan menyalin dari master.
 
@@ -35,7 +98,7 @@ cp -v ibrohim-wannacry-master.img ibrohim-wannacry.img
 echo "done."
 \end{lstlisting}
 
-\section{capture.sh}
+\subsection{capture.sh}
 
 Script ini digunakan untuk melakukan \textit{packet capture}. \textit{Packet capture} dilakukan dengan menggunakan perintah \verb|tcpdump|.
 
@@ -43,13 +106,15 @@ Script ini digunakan untuk melakukan \textit{packet capture}. \textit{Packet cap
 #!/bin/bash
 i="1"
 while [ -f output.$i.pcap ]; do let "i++"; done;
+touch output.$i.pcap
 
 file=output.$i.pcap
 
 echo "output: $file"
 echo "start capturing..."
 tcpdump -s0 -vv -w $file &
-sleep 30m; kill $!
+sleep 30m; kill $!hmm
+
 echo "done."
 \end{lstlisting}
 

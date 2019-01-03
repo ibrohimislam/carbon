@@ -9,7 +9,7 @@
 % Berkas ini berisi struktur utama dokumen LaTeX yang akan dibuat.
 %
 %--------------------------------------------------------------------%
-\documentclass[12pt, a4paper, onecolumn, oneside, final]{report}
+\documentclass[12pt, a4paper, onecolumn, oneside, final, bahasa]{report}
 \special{papersize=210mm,297mm}
 
 % set margin
@@ -30,6 +30,8 @@
 % citation style
 \usepackage[backend=bibtex,citestyle=authoryear]{biblatex}
 
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{titling}
 \usepackage{blindtext}
@@ -65,7 +67,16 @@
 \renewcommand{\cftafterlottitle}{\hfill\hfill}
 
 \usepackage{listings}
-\lstset{upquote=true,breaklines=true,basicstyle=\ttfamily\linespread{1}\small, frame=tlrb}
+\lstset{
+	upquote=false,
+	frame=tlrb,
+	basicstyle=\ttfamily\footnotesize,
+	stepnumber=1,
+	showstringspaces=false,
+	tabsize=4,
+	breaklines=true,
+	breakatwhitespace=false
+}
 
 \floatstyle{plaintop}
 \restylefloat{table}
@@ -102,7 +113,7 @@
 
 \begin{center}
 \smallskip
-\large \bfseries \thetitle
+\large \bfseries \MakeUppercase{\thetitle}
 \vfill
 \large Laporan Tugas Akhir\\
 \vfill
@@ -134,7 +145,7 @@ oleh\\
 
 \begin{document}
 
-\title{IMPLEMENTASI DPI PADA IPTABLES SEBAGAI PENANGKAL INFEKSI MALWARE MELALUI JARINGAN}
+\title{Implementasi DPI pada Iptables sebagai Penangkal Infeksi Malware Melalui Jaringan}
 \date{}
 \author{IBROHIM KHOLILUL ISLAM\\
 NIM : 13513090}
@@ -148,7 +159,6 @@ NIM : 13513090}
 \pagestyle{plain}
 
 \input{chapters/abstract-id}
-\input{chapters/abstract-en}
 \input{chapters/forewords}
 \clearpage
 

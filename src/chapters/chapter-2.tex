@@ -51,10 +51,10 @@ Firewall saat ini yang pada umumnya memiliki tipe sebagai berikut:
 	Application proxy firewall atau application gateway merupakan firewall yang digunakan pada application layer untuk sebuah protocol tertentu.
 \end{enumerate}
 
-\subsection{Arsitektur Firewall}
+\section{Arsitektur Firewall}
 Firewall pada implementasinya dapat ditempatkan dengan beberapa arsitektur menurut (\cite{zwicky2000building}).
 
-\subsubsection{Arsitektur \textit{Dual-Homed Host}}
+\subsection{Arsitektur \textit{Dual-Homed Host}}
 
 Arsitektur \textit{dual-homed host} merupakan dibangun dengan menggunakan komputer \textit{dual-homed host}, yakni sebuah komputer yang terhubung dengan dua atau lebih jaringan. Komputer ini dapat bekerja sebagai router antara kedua jaringan yang terhubung ke komputer tersebut. Namun, untuk mengimplemntasi firewall dengan arsitektur \textit{dual-homed host} fungsi routing ini tidak difungsikan. Sehingga tidak ada data yang dapat dikirimkan langsung antar kedua jaringan. Jadi untuk setiap paket yang akan dikirimkan dari jaringan internal ke jaringan luar harus melalui \textit{dual-homed host}, dan dari jaringan luar ke jaringan dalam juga harus melalui \textit{dual-homed host}. Sehingga susunan komponen pada jaringan tersebut seperti pada gambar \ref{fig:dual_homed}
 
@@ -65,7 +65,7 @@ Arsitektur \textit{dual-homed host} merupakan dibangun dengan menggunakan komput
 	\label{fig:dual_homed}
 \end{figure}
 
-\subsubsection{Arsitektur \textit{Screened Host}}
+\subsection{Arsitektur \textit{Screened Host}}
 
 Berbeda dengan arsitektur \textit{dual-homed host} yang memberikan service dari host yang terhubung ke beberapa jaringan dengan fungsi tidak mengaktifkan fungsi routing, arsitektur \textit{screened host} memberikan layanan dari host yang hanya terhubung ke internal network dan menggunakan router terpisah seperti pada  gambar \ref{fig:screened_host}. Pada arsitektur ini, keamanan dijaga oleh packet filtering, dengan melakukan konfigurasi berikut:
 
@@ -83,7 +83,7 @@ Namun pada pada arsitektur ini, jaringan internal sangat mudah diserang dari hos
 	\label{fig:screened_host}
 \end{figure}
 
-\subsubsection{Arsitektur \textit{Screened Subnet}}
+\subsection{Arsitektur \textit{Screened Subnet}}
 
 Arsitektur \textit{screened subnet} memiliki layer tambahan dibandingkan dengan arsitektur \textit{screened host} dengan memisahkan internal network lebih jauh dari Internet.
 
@@ -166,7 +166,6 @@ Teknologi ini membuat next generation firewall dapat mencegah ancaman secara rea
 	Komponen ini menggunakan kelebihan dari in-depth application inspection untuk mengurangi pengiriman file dan data yang tidak terotorisasi. Kelebihan ini juga termasuk dengan memblok file sesuai tipe file yang sebenarnya, tidak hanya melihat extensionnya, dan juga untuk mengatur pengiriman data-data yang sensitif seperti nomor kartu kredit. 
 \end{itemize}
 
-\subsection{Perbedaan performansi antara tradisional firewall dan new generation firewall}
 Pada tradisional firewall, fungsi-fungsi keamanan dilakukan secara terpisah satu sama lain, seperti yang digambarkan pada gambar \ref{fig:architecture_tradisional_firewall}. Hal ini menyebabkan penggunaan system resource yang berlebihan dan tidak efisien.
 \begin{figure}[H]
 	\centering
@@ -198,7 +197,6 @@ Komponen yang digunakan untuk memberi identitas pada aplikasi dan protokol diseb
 
 Walaupun signature tersebut dikembangkan dengan tujuan keunikan dan untuk mengidentifikasi suatu aplikasi atau protokol, ada kalanya signature tersebut tidak robust. Terdapat istilah \textit{false positives} dan \textit{false negatives} karena signature tersebut. \textit{False positives} merujuk pada keadaan salah mengelompokkan atau salah mengidentifikasi, seperti suatu aplikasi diidentifikasi sebagai sesuatu, namun sebenarnya bukan. \textit{False negatives} merujuk pada keadaan dimana suatu aplikasi atau protokol tidak teridentifikasi secara konsisten sebagai sesuatu yang sama. Contohnya, beberapa aplikasi akan berperilaku berbeda apabila koneksi yang dilakukan melalui proxy atau tidak. Salah satu cara untuk membuat signature tersebut menjadi lebih robust adalah dengan menggunakan beberapa pola kombinasi.
 
-\subsection{Metode analisis signature}
 Ada beberapa metode analisis yang digunakan untuk mengidentifikasi dan mengelompokkan paket, yaitu:
 \begin{itemize}
 	\item Analisis berdasarkan port\\

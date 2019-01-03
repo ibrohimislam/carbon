@@ -1,5 +1,7 @@
 \chapter{Analisis dan Perancangan}
 
+Pada bab ini diuraikan analisis yang telah dilakukan untuk mendapatkan rancangan solusi. Pada bagian analisis diuraikan analisis permasalahan, batasan masalah, dan analisis kebutuhan. Kemudian bab ini dilanjutkan dengan rancangan solusi berupa rancangan sistem dan rancangan rule yang berdasarkan analisis yang telah dilakukan.
+
 \section{Analisis Permasalahan}
 Untuk mencapai tujuan pada pada subbab I.3, tedapat tiga komponen permasalahan: infeksi malware, deteksi malware dan penangkalan infeksi.
 
@@ -176,7 +178,7 @@ Setelah diketahui jenis protokol yang digunakan, untuk dapat menangkal paket mal
 
 Namun, kakas deteksi seperti \verb|match string| hanya melakukan pencocokan pada payload dan tidak memiliki fitur untuk melakukan pencocokan pada bagian tertentu dari struktur data paket. Sehingga tidak dapat mendeteksi bagian seperti byte ke-n dari sebuah paket. Padahal hal ini diperlukan untuk melakukan pencocokan misalkan pada jenis perintah yang digunakan pada protokol SMB.
 
-Berikut tabel \ref{table:software_requirement} yang merangkum kebutuhan perangkat lunak yang muncul untuk mencapai tujuan pada BAB I.
+Berikut tabel \ref{table:software_requirement} yang merangkum kebutuhan perangkat lunak yang muncul untuk mencapai tujuan pada BAB I. Sebuah sistem penangkal malware memerlukan sebuah sistem penangkalan paket sehingga dapat melakukan penangkalan ketika dideteksi terjadi serangan. Selain itu sistem penangkal malware ini juga harus memiliki state machine untuk dapat melakukan pengecekan secara \textit{stateful}. Sebuah sistem penangkal malware ini juga harus memiliki deteksi protokol dan signature pada level aplikasi sehingga dapat mendeteksi perilaku malware tidak hanya pada layer transport. Kemudian sistem penangkal malware juga harus memiliki basis data untuk menyimpan signature, sehingga perlu fungsionalitas menambahkan rule.
 
 \begin{table}[H]
 	\caption{Tabel kebutuhan perangkat lunak}
@@ -218,11 +220,38 @@ Dengan menggunakan framework netfilter, untuk membuat kakas analisis paket diper
 
 \section{Perancangan State Machine dengan Iptables}
 
+Pada bagian ini dibahas bagaimana iptables dapat menjalankan state machine pada satu koneksi TCP. Hal ini digunakan pada perancangan selanjutnya untuk menjalankan rule stateful untuk mendapatkan signature dari WannaCry. State machine dijalankan pada satu koneksi karena pada analisis ditemukan bahwa pada kasus WannaCry solusi ini cukup.
 
+Kebutuhan yang diperlukan dalam melakukan implementasi state machine adalah sebagai berikut. state machine dapat menyimpan state; state machine dapat melakukan transisi state berdasarkan input dan state saat ini; dan state machine dapat menentukan apakah sebuah input dapat diterima atau tidak.
+
+Implementasi penyimpanan state, dalam konteks ini state dalam satu koneksi TCP, dapat dilakukan denganmodul \verb|CONNTRACK| pada iptables yang dapat menyimpan state dalam bentuk 32-bit. Modul \verb|CONNTRACK| dapat digunakan pada tabel \verb|MANGLE|. Berikut adalah perintah yang dapat digunakan.
+
+\begin{lstlisting}
+-t mangle -A PREROUTING -j CONNMARK --restore-mark
+-t mangle -A POSTROUTING -j CONNMARK --save-mark
+\end{lstlisting} 
+
+Perintah di atas dapat menyimpan tanda yang diatur dengan modul \verb|MARK|, dan mengembalikannya tanda pada paket selanjutnya. Akibatnya seluruh tanda yang ada pada sebuah paket akan menjadi state koneksi ketika masuk ke chain \verb|POSTROUTING|. Kemudian seluruh paket yang masuk setelah koneksi memiliki state, akan ditandai ketika masuk ke chain \verb|PREROUTING|.
+
+Implementasi transisi state dapat dilakukan dengan modul \verb|MARK|. Hal ini dapat dilakukan dengan cara melakukan pengecekan terhadap tanda pada paket dan mengubah tanda jika menemukan kondisi yang cocok. Berikut adalah perintah yang dapat digunakan untuk melakukan transisi state.
+
+\begin{lstlisting}
+-m mark --mark $CURRENT_STATE $ALPHABET -j MARK --set-xmark $NEW_STATE
+\end{lstlisting}
+
+Perintah di atas akan melakukan pengecekan bahwa sebuah paket berada dalam sebuah state \verb|$CURRENT_STATE| dan menerima input berupa \verb|$ALPHABET|. Kemudian ketika kondisi tersebut dipenuhi, maka tanda akan diubah ke \verb|$NEW_STATE|. Sehingga perintah tersebut dapat merepresentasikan fungsi transisi state.
+
+Implementasi state machine dapat menerima sebuah input atau tidak dapat dilakukan dengan menggunakan perintah \verb|-j $ACTION|. Perintah itu harus dipasangkan setelah melakukan pengecekan terhadap state final. Bentuk lengkap perintahnya adalah sebagai berikut.
+
+\begin{lstlisting}
+-m mark --mark $FINAL_STATE -j $ACTION
+\end{lstlisting}
 
 \section{Perancangan Rule dengan Iptables}
 
-Rule akan diimplementasi dengan membuat sebuah state transition sebuah koneksi tcp. Hal ini dapat dilakukan dengan menggunakan modul mangle \verb|CONNTRACK|. State transition diagram \ref{fig:state_transition_diagram} menggunakan packet sebagai alfabet dan memiliki 3 state.
+Pada bagian ini dibahas bagaimana rancangan rule iptables untuk menangkal WannaCry. Rule dibuat dari hasil analisis yang telah dilakukan pada subbab analisis batasan masalah. Rancangan dilakukan dengan membuat state transition diagram untuk dijalankan pada state machine yang telah dibahas pada bab sebelumnya.
+
+Seperti telah dibahas pada bagian analisis, rule akan diimplementasi dengan membuat sebuah state transition sebuah koneksi \verb|SMB|. State transition diagram \ref{fig:state_transition_diagram} menggunakan perintah SMB sebagai alfabet masukan dan memiliki 3 state.
 
 Seluruh koneksi pada awalnya berada pada state 0, dan akan terus pada state 0 hingga ditemukan signature bahwa koneksi merupakan koneksi SMB. Jika ditemukan signature, maka koneksi akan berubah menjadi state 1. Pada state 1 setiap paket akan dilakukan pengecekan terhadap command yang dilakukan. Jika ditemukan command \verb|COM_NT_TRANSACT| maka koneksi akan menjadi state 2. Kemudian state 2 ini merupakan state yang menentukan apakah ditemukan paket malicious yakni dengan mengirimkan \verb|COM_TRANSACTION2_SECONDARY| setelah \verb|COM_NT_TRANSACT|. Jika ditemukan maka koneksi akan ditandai untuk dilakukan \verb|DROP|.
 
