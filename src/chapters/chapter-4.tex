@@ -219,9 +219,20 @@ Pada tabel \ref{table:1800s_all_network_control} dapat dilihat persebaran hasil 
 	\label{fig:infection_control_over_time_firewalled}
 \end{figure}
 
-Grafik akumulasi host teinfeksi pada percobaan implementasi firewall dapat dilihat pada gambar \ref{fig:infection_control_over_time_firewalled}. Persebaran pengamatan host terinfeksi pada keseluruhan network dapat dilihat pada tabel \ref{table:1800s_all_network_firewalled}. Dari 83 percobaan tidak diamati infeksi terjadi pada \textit{internal\_network}.
+Grafik akumulasi host teinfeksi pada percobaan implementasi firewall dapat dilihat pada gambar \ref{fig:infection_control_over_time_firewalled}. Pada gambar tersebut diamati setelah detik ke-600 tidak terjadi infeksi. Jumlah maksimum infeksi yang terjadi sebanyak 6 host yakni host pada \textit{external\_network}. Persebaran pengamatan host terinfeksi pada keseluruhan network dapat dilihat pada tabel \ref{table:1800s_all_network_firewalled}. Dari 83 percobaan tidak diamati infeksi terjadi pada \textit{internal\_network}.
 
 \section{Pembahasan}
 
-Pada subbab ini dijelaskan bagaimana tujuan telah dicapai dari hasil pengujian yang telah dilakukan. Tujuan pada bab I berhasil dilakukan berdasarkan ...
+Pada subbab ini dijelaskan bagaimana tujuan pada bab I berhasil dilakukan berdasarkan data yang didapatkan pada percobaan. Selain itu dalam subbab ini dijelaskan kelemahan dan kemungkinan pengembangan selanjutnya. Kelemahan dan kemungkinan pengembangan selanjutnya yang kemudian disimpulkan dalam bab selanjutnya.
 
+Percobaan kontrol menjadi dasar untuk membuktikan bahwa tujuan tercapai. Percobaan kontrol menunjukan bahwa malware WannaCry tetap dapat menginfeksi meskipun melalui sebuah bridge, dalam hal ini juga berlaku sebagai transparent firewall namun belum diterapkan rule. Percobaan ini menunjukan dengan kondisi tanpa perlakuan WannaCry dapat menginfeksi \textit{internal\_network}. Jika implementasi dapat mencapai tujuan, maka dengan perlakuan tersebut seharusnya WannaCry tidak dapat menginfeksi \textit{internal\_network}.
+
+Kemudian hasil percobaan firewall implementasi dari 83 data yang diamati, tidak terjadi infeksi pada \textit{internal\_network}. Sehingga dapat disimpulkan tujuan yang disampaikan pada bab I tercapai. Dari 83 data masih belum diamati \textit{false-negative}. \textit{False-negative} seharusnya dapat diamati ketika terjadi infeksi pada \textit{internal\_network}. Kemudian dari packet capture yang dilakukan dapat dilakukan analisis.
+
+Selain itu \textit{false-positive} juga sulit diamati dari data tersebut karena pengujian hanya memperhatikan bagaimana infeksi terjadi. Sedangkan tidak melakukan pengecekan pada protokol SMB pada keadaan normal. Walaupun penulis telah melakukan pengujian pada saat implementasi, dan mengamati bahwa rule firewall tersebut tidak mengganggu proses normal.
+
+Bagian menarik dari data pada Lampiran B, malware ini tidak menginfeksi \textit{external\_network} secara maksimal ketika rule diterapkan. Dari hal ini dapat ditarik sebuah kesimpulan ketika malware ditangani pada suatu sisi, sisi lain dari network pun menjadi lebih aman. Hal ini terjadi karena \textit{internal\_network} tidak menjadi host yang terinfeksi dan kemudian ikut menyerang host lain.
+
+Implementasi dalam bentuk \textit{signature-based} memiliki kelebihan untuk dapat menangkap signature dengan tingkat \textit{false-negative} yang kecil. Implementasi pada iptables merupakan bentuk implementasi \textit{realtime dynamic signature-based detection}. Implementasi DPI dalam bentuk ini perlu memperhatikan fragmentasi paket, sehingga paket perlu ditunggu hingga lengkap untuk dapat dianalisis. Pada implementasi saat ini masih belum secara detail diperhatikan, sehingga memungkinkan untuk menimbulkan false-negative.
+
+Pada pengembangan selanjutnya, seharusnya implementasi dalam bentuk ini dapat digunakan untuk mendeteksi signature malware-malware yang telah diketahui. Hal ini seharusnya dapat menekan \textit{long-tail infection} yang tejadi seperti pada malware WannaCry ini. Namun, tidak semua malware dapat dideteksi dengan implementasi ini. Hal ini karena tidak semua signature infeksi dapat ditemukan dalam satu koneksi seperti yang terjadi pada WannaCry. Oleh karena itu diperlukan implementasi state-machine yang tidak hanya \textit{single-connection oriented}.

@@ -4,25 +4,25 @@ Pada bab ini diberikan latar belakang dan garis besar mengenai tugas akhir. Gari
 
 \section{Latar Belakang}
 
-Saat ini banyak diterapkan IDS untuk meminimalisir risiko ketika terjadinya retasan. Padahal firewall umumnya sudah diterapkan. Hal ini terjadi karena firewall seperti iptables saat ini tidak dapat mendeteksi retasan yang terjadi pada layer di atas network dan transport. Padahal deteksi retasan oleh malware tidak dapat dilakukan pada layer network dan transport.
+Saat ini banyak diterapkan \textit{Intrusion Detection System} (IDS) untuk melakukan deteksi ketika terjadinya retasan. Padahal firewall umumnya sudah diterapkan. Hal ini terjadi karena firewall seperti iptables saat ini tidak dapat mendeteksi retasan yang terjadi pada layer di atas network dan transport. Padahal deteksi retasan oleh malware tidak dapat dilakukan pada layer network dan transport.
 
-Menurut sebuah survey dari Alcatel-Lucent strategic white paper (The Case for Network-based Malware Detection, 2014), solusi pengamanan client-based kurang efektif untuk mencegah malware. Hampir 81\% terinfeksi malware, meskipun telah dipasangi oleh anti-virus. Sehingga diperlukan sebuah solusi pengamanan yang tidak dapat di-\textit{disable} dari sistem. Salah satu solusinya adalah dengan menggunakan network-based malware detection.
+Menurut sebuah survey dari \textit{Alcatel-Lucent strategic white paper} \cite{alcatel_lucent_2013}, solusi pengamanan \textit{client-based} kurang efektif untuk mencegah malware. Hampir 81\% terinfeksi malware, meskipun telah dipasangi oleh antivirus. Sehingga diperlukan sebuah solusi pengamanan yang tidak dapat di-\textit{disable} dari sistem. Salah satu solusinya adalah dengan menggunakan network-based malware detection.
 
 Malware detection menjadi fitur penting yang diperlukan oleh sebuah sistem pengamanan. Namun, saat ini implementasi \textit{open-source} firewall, yakni iptables masih belum memberikan fitur \textit{native} untuk melakukan deteksi malware pada \textit{layer} aplikasi.
 
 \section{Rumusan Masalah}
 
-Selama ini \textit{open-source} firewall hanya dapat melakukan pengenalan pada header paket pada layer network dan transport. Sementara itu malware tidak dapat dikenali hanya dengan mengenali header paket pada layer tersebut. Sehingga pada tugas akhir ini dilakukan pengembangan sistem yang mengenali malware dan dapat menangkalnya dengan mengenali data yang berada di atas layer tersebut.
+Selama ini \textit{open-source} firewall hanya dapat melakukan pengenalan pada header paket pada layer \textit{network} dan \textit{transport}. Sementara itu malware tidak dapat dikenali hanya dengan mengenali header paket pada layer tersebut. Sehingga pada tugas akhir ini dilakukan pengembangan sistem yang mengenali malware dan dapat menangkalnya dengan mengenali data yang berada di atas layer tersebut.
 
 \section{Tujuan}
-Tujuan dari tugas akhir ini adalah membangun sistem penangkal malware yang menerapkan DPI pada implementasi firewall \textit{open-source}.
+Tujuan dari tugas akhir ini adalah membangun sistem penangkal malware yang menerapkan \textit{Deep Packet Inspection} (DPI) pada implementasi firewall \textit{open-source}.
 
 \section{Batasan Masalah}
-Implementasi DPI pada firewall open-source difokuskan pada hal-hal sebagai berikut:
+Implementasi DPI pada firewall \textit{open-source} difokuskan pada hal-hal sebagai berikut:
 \begin{enumerate}
 	\item Implementasi dilakukan pada firewall \textit{open-source} iptables.
 	\item Implementasi tidak difokuskan untuk meningkatkan kinerja firewall setelah \textit{DPI} diimplementasi.
-	\item Implementasi menggunakan komponen-komponen yang sudah ada dari pustaka \textit{open-source} dengan kapabilitas \textit{deep packet inspection}.
+	\item Implementasi menggunakan komponen-komponen yang sudah ada dari pustaka \textit{open-source} dengan kapabilitas DPI.
 	\item Implementasi akan dibatasi untuk melakukan deteksi pada \textit{malware} WannaCry.
 \end{enumerate}
 
@@ -30,7 +30,7 @@ Implementasi DPI pada firewall open-source difokuskan pada hal-hal sebagai berik
 Metodologi yang digunakan pada pengerjaan tugas akhir ini, antara lain:
 \begin{enumerate}
 	\item Studi literatur. Pada studi literatur, dilakukan pencarian referensi mengenai
-	definisi-definisi pada domain next-generation firewall, dan metode apa saja yang dapat 
+	definisi-definisi pada domain \textit{next-generation firewall}, dan metode apa saja yang dapat 
 	dilakukan untuk mendeteksi serangan yang dilakukan malware. Referensi juga
 	digunakan untuk mendapatkan \textit{state of the art} dari domain ini.
 	\item Analisis. Dalam tahapan ini dilakukan analisis malware dan analisis gap dari

@@ -1,7 +1,16 @@
 \chapter{Penutup}
 
+Pada bab ini disampaikan kesimpulan yang didapatkan dari tugas akhir ini. Kemudian bab ini dilanjutkan dengan saran dari penulis.
+
 \section{Kesimpulan}
-\blindtext
+
+Implementasi DPI pada firewall open-source iptables dapat digunakan sebagai penangkal malware yang pada tugas akhir ini dibatasi pada malware WannaCry. Implementasi dilakukan dengan menggunakan teknik \textit{dynamic signature-based}. Pengujian yang dilakukan belum ditemukan \textit{false-negative} pada implementasi DPI ini.
 
 \section{Saran}
-\blindtext
+
+Saran-saran untuk pengembangan selanjutnya berdasarkan pengembangan yang telah dilakukan.
+\begin{enumerate}
+	\item Membuat \textit{Domain Specific Language} untuk merepresentasikan sebuah protokol. Dengan DSL diharapkan penambahan jenis protokol untuk DPI dapat dilakukan dengan lebih mudah.
+	\item Implementasi \textit{state machine} yang tidak hanya bergantung pada satu koneksi. Hal ini dapat meningkatkan kemampuan firewall untuk mendeteksi malware yang melakukan infeksi tidak hanya menggunakan \textit{single-connection}.
+	\item Implementasi \textit{Deep Packet Inspection} yang memperhatikan performa.
+\end{enumerate}

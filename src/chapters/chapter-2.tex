@@ -4,30 +4,30 @@ Pada bab ini berisi hasil tinjauan pustaka yang menjadi dasar analisis dan peran
 
 \section{\textit{Network Border Security}}
 
-Seperti dalam dunia nyata, sebuah keamanan dijaga pada sebuah wilayah tertentu. Pada sebuah jaringan border-security memisahkan jaringan \textit{internal} dan \textit{external}. Jaringan \textit{internal} sebagai yang akan dilindungi, dan memisahkannya dengan external network menggunakan sebuah gateway border. Pada (Strebe, 2004) border-security secara teori harus memiliki \textit{measures} sebagai berikut:
+Seperti dalam dunia nyata, sebuah keamanan dijaga pada sebuah wilayah tertentu. Pada sebuah jaringan border-security memisahkan jaringan \textit{internal} dan \textit{external}. Jaringan \textit{internal} sebagai yang akan dilindungi, dan memisahkannya dengan \textit{external network} menggunakan sebuah \textit{gateway border}. Pada (Strebe, 2004) \textit{border-security} secara teori harus memiliki \textit{measures} sebagai berikut:
 
 \begin{enumerate}
 	\item \textit{Control every crossing}
 	
-	Border security harus melakukan pengecekan untuk setiap lalu lintas data antara internal network dan external network. Sebuah koneksi antara internal network dan external network yang tidak dilakukan pengecekan
+	Border security harus melakukan pengecekan untuk setiap lalu lintas data antara \textit{internal network} dan \textit{external network}. Sebuah koneksi antara \textit{internal network} dan \textit{external network} yang tidak dilakukan pengecekan
 	dapat menjadi celah untuk terjadinya serangan. Hal ini dapat dilakukan dengan cara menempatkan firewall pada setiap batas jaringan.
 	
 	\item \textit{Apply the same policy universally}
 	
-	Sebuah control untuk sebuah lalu lintas data tertentu harus dilakukan sama untuk seluruh hubungan yang terjadi antara internal network dan external network. Hal ini membutuhkan penerapan menyeluruh, karena efek dari penerapan ini akan bergantung pada penerapan yang terlemah. Jika dibutuhkan perbedaan tingkat keamanan, bisa dilakukan dengan memisahkan jaringan yang memerlukan perbedaan tingkat. Salah satunya seperti yang dilakukan pada DMZ.
+	Sebuah \textit{control} untuk lalu lintas data tertentu harus dilakukan sama untuk seluruh hubungan yang terjadi antara \textit{internal network} dan \textit{external network}. Hal ini membutuhkan penerapan menyeluruh, karena efek dari penerapan ini akan bergantung pada penerapan yang terlemah. Jika dibutuhkan perbedaan tingkat keamanan, bisa dilakukan dengan memisahkan jaringan yang memerlukan perbedaan tingkat. Salah satunya seperti yang dilakukan pada DMZ.
 	
 	\item \textit{Deny by default}
 	
-	Seluruh keterhubungan hanya akan memperbolehkan lalu lintas data yang ada pada whitelist. Penerapan ini perlu dilakukan untuk lalu lintas ke luar	maupun ke dalam firewall. Jika sebaliknya diterapkan \textit{allow by default}, ketika malware dengan jenis trojan tanpa sengaja dijalankan pada jaringan internal, malware dapat dengan mudah melakukan koneksi ke luar. Misal untuk mengirimkan data yang seharusnya dilindungi.
+	Seluruh keterhubungan hanya akan memperbolehkan lalu lintas data yang ada pada \textit{whitelist}. Penerapan ini perlu dilakukan untuk lalu lintas ke luar	maupun ke dalam firewall. Jika sebaliknya diterapkan \textit{allow by default}, ketika malware dengan jenis trojan tanpa sengaja dijalankan pada jaringan internal, malware dapat dengan mudah melakukan koneksi ke luar. Misal untuk mengirimkan data yang seharusnya dilindungi.
 	
 	\item \textit{Hide as much as information as possible}
 	
-	Penyembunyian data interior dari sebuah network perlu dilakukan. Hal ini digunakan untuk mencegah penyerang mendapatan informasi jaringan internal. Mendapatkan informasi mengenai jaringan internal merupakan langkah awal yang dilakukan \textit{hacker}. Jika informasi ini didapatkan, hacker dapat menggunakan untuk berbagai macam, seperti \textit{inserting-traffic at IDS} (\cite{marpaung2012survey}).
+	Penyembunyian data interior dari sebuah network perlu dilakukan. Hal ini digunakan untuk mencegah penyerang mendapatan informasi jaringan internal. Mendapatkan informasi mengenai jaringan internal merupakan langkah awal yang dilakukan hacker. Jika informasi ini didapatkan, hacker dapat menggunakan untuk berbagai macam, seperti \textit{inserting-traffic at IDS} (\cite{marpaung2012survey}).
 	
 \end{enumerate}
 
 \section{Firewall}
-Firewall merupakan hardware, software atau kombinasi keduanya yang digunakan untuk melakukan monitoring dan filter terhadap lalu lintas data yang masuk atau keluar dari sebuah jaringan yang berusaha dilindungi (Kizza, 2005). Menurut (Stallings, 2012) \textit{design goal firewall} sebagai berikut: 
+Firewall merupakan hardware, software atau kombinasi keduanya yang digunakan untuk melakukan monitoring dan filter terhadap lalu lintas data yang masuk atau keluar dari sebuah jaringan yang berusaha dilindungi (\cite{kizza2002computer}). Menurut (Stallings, 2012) \textit{design goal firewall} sebagai berikut: 
 Seluruh lalu lintas data dari dalam ke luar ataupun sebaliknya harus melalui firewall;
 Hanya lalu lintas data yang terotorisasi yang dapat melalui firewall;
 dan firewall merupakan system yang kebal terhaadap penetration.

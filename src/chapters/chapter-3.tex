@@ -198,11 +198,6 @@ Berikut tabel \ref{table:software_requirement} yang merangkum kebutuhan perangka
 
 Perancangan dilakukan dengan menggunakan framework NetFilter. NetFilter merupakan framework native yang dimiliki oleh Linux untuk melakukan pemrosesan paket.
 
-
-\subsection{Arsitektur Sistem}
-
-Arsitektur sistem 
-
 \subsection{Struktur Internal Sistem}
 
 Dengan menggunakan framework netfilter, untuk membuat kakas analisis paket diperlukan \verb|xt_match| dan \verb|xtables_match| seperti pada diagram kelas \ref{fig:class_diagram}.
@@ -264,7 +259,7 @@ Seluruh koneksi pada awalnya berada pada state 0, dan akan terus pada state 0 hi
 
 \section{Traceability}
 
-Pada tabel \ref{table:software_traceability_design} berikut ditunjukan kerunutan desain dan kebutuhan.
+Pada tabel \ref{table:software_traceability_design} berikut ditunjukan kerunutan desain dan kebutuhan. Penangkalan paket (SR1) dapat menggunakan \textit{action} \verb|DROP| dari iptables. SR2, State machine dapat didipenuhi dengan menggunakan modul \verb|CONNTRACK| seperti dijelaskan pada subbab sebelumnya. SR3, deteksi protokol level aplikasi dapat dipenuhi dengan menggunakan modul nDPI-Netfilter. SR4, deteksi signature yang paham terhadap struktur data diimplementasi dalam bentuk modul kernel \verb|xt_ngfilter|. Kemudian untuk memenuhi SR5, menambahkan rule menggunakan kakas iptables dengan membuat modul \textit{userspace} untuk berinteraksi dengan modul kernel \verb|xt_ngfilter|.
 
 \begin{table}[H]
 	\caption{Traceability perangkat lunak}
@@ -275,7 +270,7 @@ Pada tabel \ref{table:software_traceability_design} berikut ditunjukan kerunutan
 		SR1 & Penangkalan paket & menggunakan action DROP oleh iptables \\ \hline 
 		SR2 & State machine &  menggunakan modul mangle \verb|CONNTRACK| \\ \hline
 		SR3 & Deteksi protokol level aplikasi & menggunakan modul nDPI-NetFilter \\ \hline
-		SR4 & Deteksi signature & class \verb|xt_ngfilter| pada diagram kelas \ref{fig:class_diagram} \\ \hline
+		SR4 & Deteksi signature yang paham terhadap struktur data& class \verb|xt_ngfilter| pada diagram kelas \ref{fig:class_diagram} \\ \hline
 		SR5 & Menambahkan rule & class \verb|libxt_ngfilter| pada diagram kelas \ref{fig:class_diagram} \\ \hline
  	\end{tabularx}
 \end{table}
