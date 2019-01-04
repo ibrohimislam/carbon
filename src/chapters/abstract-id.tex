@@ -2,11 +2,11 @@
 \chapter*{ABSTRAK}
 \addcontentsline{toc}{chapter}{Abstrak}
 
-Pada tugas akhir ini, dikembangkan sebuah \textit{inline network-based malware detection} untuk melakukan deteksi malware. hal ini dilakukan karena firewall saat ini masih belum dapat melakukan deteksi infeksi malware. Malware pada pengembangan ini dibatasi pada malware WannaCry yang menginfeksi lebih dari 75.000 host pada 2017. \textit{Inline network-based malware detection} diterapkan pada sebuah firewall sehingga dapat melakukan penagkalan infeksi.
+Pada tugas akhir ini, dikembangkan sebuah \textit{inline network-based malware detection} untuk melakukan deteksi malware. Hal ini dilakukan karena firewall saat ini masih belum dapat melakukan deteksi infeksi malware. Malware yang dipakai pada pengembangan ini adalah malware WannaCry yang menginfeksi lebih dari 75.000 host pada 2017. \textit{Inline network-based malware detection} diterapkan pada sebuah firewall sehingga dapat melakukan penagkalan infeksi.
 
-Pengembangan dilakukan dengan menggunakan teknik \textit{dynamic signature-based}. Teknik ini secara teori dapat meminimalisir \textit{false-negative} dibandingkan dengan teknik \textit{anomaly-based}. Signature dibentuk dari hasil inspeksi oleh DPI yang dikembangkan untuk protokol SMB. Signature dalam bentuk \textit{state machine} dari hasil inspeksi oleh SMB digunakan untuk menentukan apakah sebuah paket berbahaya atau tidak.
+Pengembangan dilakukan dengan menggunakan teknik \textit{dynamic signature-based}. Teknik ini secara teori dapat meminimalisir \textit{false-negative} dibandingkan dengan teknik \textit{anomaly-based}. Signature yang dibentuk dari hasil inspeksi oleh DPI yang dikembangkan untuk protokol SMB. Signature dalam bentuk \textit{state machine} dari hasil inspeksi oleh SMB digunakan untuk menentukan apakah sebuah paket berbahaya atau tidak.
 
-Pengujian dilakukan dengan melakukan percobaan. Percobaan dilakukan dengan menerapkan tranparent-firewall dalam sebuah subnet. Hasil percobaan menunjukan implementasi \textit{inline network-based malware detection} tersebut dapat melakukan penangkalan pada 83 percobaan yang telah dilakukan. Percobaan tersebut belum menunjukan ditemukannya \textit{false-negative}. Namun pada perancangan pengujian tersebut tidak dapat mendeteksi \textit{false-positive}.
+Pengujian dilakukan dengan melakukan percobaan. Percobaan dilakukan dengan menerapkan transparent-firewall dalam sebuah subnet. Hasil percobaan menunjukan implementasi \textit{inline network-based malware detection} tersebut dapat melakukan penangkalan pada 83 percobaan yang telah dilakukan. Dalam percobaan tersebut belum menunjukan ditemukannya \textit{false-negative}. Namun pada perancangan pengujian tidak dilakukan untuk mendeteksi \textit{false-positive}.
 
 \vspace{17px} \noindent Kata kunci: \textit{network-based malware detection}, firewall, wannacry
 
