@@ -1,12 +1,14 @@
 \clearpage
-\chapter*{ABSTRAK}
+\chapter*{Abstrak}
 \addcontentsline{toc}{chapter}{Abstrak}
 
-Pada tugas akhir ini, dikembangkan sebuah \textit{inline network-based malware detection} untuk melakukan deteksi malware. Hal ini dilakukan karena firewall saat ini masih belum dapat melakukan deteksi infeksi malware. Malware yang dipakai pada pengembangan ini adalah malware WannaCry yang menginfeksi lebih dari 75.000 host pada 2017. \textit{Inline network-based malware detection} diterapkan pada sebuah firewall sehingga dapat melakukan penagkalan infeksi.
+Setelah 18 bulan, menurut Kryptos Logic, masih terdapat lebih dari 500.000 komputer terinfeksi WannaCry. Selain itu sebuah survei dari \textit{Alcatel-Lucent}, solusi pengamanan \textit{client-based} kurang efektif untuk mencegah malware. Hampir 81\% terinfeksi malware, meskipun telah dipasangi oleh antivirus. Semakin banyaknya user yang terhubung internet, semakin banyak target penyebaran malware melalui internet. Karena hal itu, perlu sebuah solusi komplementer yang dapat melindungi host dari serangan malware yang melakukan penyebaran melalui jaringan.
 
-Pengembangan dilakukan dengan menggunakan teknik \textit{dynamic signature-based}. Teknik ini secara teori dapat meminimalisir \textit{false-negative} dibandingkan dengan teknik \textit{anomaly-based}. Signature yang dibentuk dari hasil inspeksi oleh DPI yang dikembangkan untuk protokol SMB. Signature dalam bentuk \textit{state machine} dari hasil inspeksi oleh SMB digunakan untuk menentukan apakah sebuah paket berbahaya atau tidak.
+Pada tugas akhir ini, dikembangkan sebuah firewall yang dapat melakukan deteksi serangan yang dilakukan oleh malware. Hal ini dilakukan karena firewall open-source saat ini masih belum dapat melakukan deteksi infeksi malware. Deteksi infeksi dilakukan pada layer aplikasi dengan mengimplementasi Deep Packet Inspection. Untuk pengembangan ini saat ini ditujukan untuk melakukan deteksi pada WannaCry.
 
-Pengujian dilakukan dengan melakukan percobaan. Percobaan dilakukan dengan menerapkan transparent-firewall dalam sebuah subnet. Hasil percobaan menunjukan implementasi \textit{inline network-based malware detection} tersebut dapat melakukan penangkalan pada 83 percobaan yang telah dilakukan. Dalam percobaan tersebut belum menunjukan ditemukannya \textit{false-negative}. Namun pada perancangan pengujian tidak dilakukan untuk mendeteksi \textit{false-positive}.
+Pengembangan dilakukan dengan menggunakan pendekatan \textit{dynamic signature-based}. Teknik ini secara teori memiliki \textit{false-negative} yang lebih kecil dibandingkan dengan teknik \textit{anomaly-based}. \textit{Signature} yang dibentuk dari hasil inspeksi oleh DPI yang dikembangkan untuk protokol \textit{Server Message Block} (SMB). \textit{Signature} dalam bentuk \textit{state machine} dari hasil inspeksi oleh SMB digunakan untuk menentukan apakah sebuah paket berbahaya atau tidak.
+
+Pengujian dilakukan dengan melakukan percobaan. Percobaan dilakukan dengan menerapkan \textit{transparent-firewall} dalam sebuah subnet. Hasil percobaan menunjukkan implementasi \textit{inline network-based malware detection} tersebut dapat melakukan penangkalan pada 83 percobaan yang telah dilakukan. Dalam percobaan tersebut belum menunjukkan ditemukannya \textit{false-negative}.
 
 \vspace{17px} \noindent Kata kunci: \textit{network-based malware detection}, firewall, wannacry
 

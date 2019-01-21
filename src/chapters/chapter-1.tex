@@ -4,39 +4,60 @@ Pada bab ini diberikan latar belakang dan garis besar mengenai tugas akhir. Gari
 
 \section{Latar Belakang}
 
-Saat ini banyak diterapkan \textit{Intrusion Detection System} (IDS) untuk melakukan deteksi ketika terjadinya retasan. Padahal umumnya firewall sudah diterapkan. Hal ini terjadi karena firewall seperti iptables saat ini tidak dapat mendeteksi retasan yang terjadi pada layer di atas network dan transport. Padahal deteksi retasan oleh malware tidak dapat dilakukan pada layer network dan transport.
+Setelah 18 bulan, menurut Kryptos Logic, masih terdapat lebih dari 500.000 komputer terinfeksi WannaCry (\cite{WannaCry95:online}). Selain itu sebuah survei dari \textit{Alcatel-Lucent} (\cite{alcatel_lucent_2013}), solusi pengamanan \textit{client-based} kurang efektif untuk mencegah malware. Hampir 81\% terinfeksi meskipun telah dipasang antivirus. Semakin banyaknya pengguna yang terhubung internet, semakin banyak target penyebaran malware melalui internet. Karena hal itu, perlu sebuah solusi komplementer yang dapat melindungi host atau sistem dari serangan malware yang melakukan penyebaran melalui jaringan.
 
-Menurut sebuah survey dari \textit{Alcatel-Lucent strategic white paper} \cite{alcatel_lucent_2013}, solusi pengamanan \textit{client-based} kurang efektif untuk mencegah malware. Hampir 81\% terinfeksi malware, meskipun telah dipasangi oleh antivirus. Sehingga diperlukan sebuah solusi pengamanan yang tidak dapat di-\textit{disable} dari sistem. Salah satu solusinya adalah dengan menggunakan network-based malware detection.
+Saat ini banyak diterapkan \textit{Intrusion Detection System} (IDS) untuk melakukan deteksi ketika terjadinya retasan. Padahal umumnya firewall sudah diterapkan. Hal ini terjadi karena firewall seperti iptables saat ini tidak dapat mendeteksi retasan yang terjadi pada layer di atas \textit{network} dan \textit{transport}. Padahal deteksi retasan oleh malware tidak dapat dilakukan pada layer \textit{network} dan \textit{transport}. Sedangkan, untuk melakukan deteksi layer yang lebih tinggi dari layer \textit{network} dan \textit{transport} perlu memahami protokol aplikasi yang digunakan untuk berkomunikasi. 
 
-Malware detection menjadi fitur penting yang diperlukan oleh sebuah sistem pengamanan. Namun, saat ini implementasi \textit{open-source} firewall, yakni iptables masih belum memberikan fitur \textit{native} untuk melakukan deteksi malware pada \textit{layer} aplikasi.
+Hal tersebut menjadi salah satu alasan \textit{Deep Packet Inspection} (DPI) diperlukan. DPI yang dimaksud adalah proses memeriksa bagian dari \textit{payload} dari layer aplikasi untuk melakukan penentuan (\cite{dubrawsky2003firewall}). Informasi yang didapatkan dari DPI kemudian dipadukan dengan \textit{inspection engine} yang memiliki kemampuan \textit{anomaly analysis}, \textit{signature analysis}, dan \textit{statistical analysis}. 
+
+Dari latar belakang yang telah disebutkan sebelumnya \textit{malware detection} menjadi fitur penting yang diperlukan oleh sebuah sistem pengamanan. Namun, saat ini implementasi \textit{open-source} firewall, belum memberikan fitur untuk melakukan deteksi serangan yang dilakukan malware pada \textit{layer} aplikasi. Diperlukan sebuah implementasi yang menerapkan \textit{Deep Packet Inspection} sehingga firewall dapat mendeteksi serangan yang dilakukan malware.
+
+Dalam tugas akhir ini dikembangkan implementasi DPI pada firewall untuk melakukan deteksi pada malware WannaCry. Implementasi ini diharapkan dapat menjadi salah satu contoh pengembangan DPI pada firewall dalam melakukan deteksi infeksi malware melalui jaringan. Kemudian dari contoh tersebut dapat ditunjukkan bagaimana efektivitas dan kinerja nya.
 
 \section{Rumusan Masalah}
 
-Selama ini \textit{open-source} firewall hanya dapat melakukan pengenalan pada header paket pada layer \textit{network} dan \textit{transport}. Sementara itu malware tidak dapat dikenali hanya dengan mengenali header paket pada layer tersebut. Sehingga pada tugas akhir ini dilakukan pengembangan sistem yang mengenali malware dan dapat menangkalnya dengan mengenali data yang berada di atas layer tersebut.
+Selama ini \textit{open-source} firewall hanya dapat melakukan pengenalan pada \textit{header} paket pada layer \textit{network} dan \textit{transport}. Sementara itu malware tidak dapat dikenali hanya dengan mengenali \textit{header} paket pada layer tersebut. Penulis kemudian merumuskan masalah dari latar belakang tersebut, yakni:
+
+\begin{enumerate}
+	\item Pendekatan seperti apa yang dapat digunakan untuk melakukan deteksi infeksi malware melalui jaringan yang cukup praktis digunakan?
+	\item Dalam pendekatan yang dipilih, apa yang harus dilakukan sehingga sistem dapat mengenali aktivitas infeksi WannaCry melalui jaringan?
+	\item Bagaimana akurasi implementasi DPI dalam pendekatan yang dipilih dalam mendeteksi infeksi WannaCry melalui jaringan?
+	\item Apakah terjadi penurunan kinerja akibat implementasi DPI?
+\end{enumerate}
 
 \section{Tujuan}
-Tujuan dari tugas akhir ini adalah membangun sistem penangkal malware yang menerapkan \textit{Deep Packet Inspection} (DPI) pada implementasi firewall \textit{open-source}.
+
+Subbab sebelum ini telah menjelaskan latar belakang dan rumusan masalah tugas akhir ini. Karena hal itu, tujuan dari tugas akhir ini adalah membangun sistem penangkal malware yang menerapkan \textit{Deep Packet Inspection} (DPI) pada implementasi firewall \textit{open-source}. Dalam implementasi DPI tersebut dilakukan hal sebagai berikut:
+
+\begin{enumerate}
+	\item menentukan pendekatan yang dapat melakukan deteksi infeksi malware melalui jaringan yang cukup praktis digunakan;
+	\item dengan menggunakan pendekatan yang dipilih, melakukan pengembangan sistem untuk mendeteksi aktivitas infeksi malware WannaCry melalui jaringan;
+	\item menunjukkan akurasi implementasi \textit{Deep Packet Inspection} dalam pendekatan yang dipilih dalam mendeteksi infeksi WannaCry melalui jaringan;
+	\item dan menunjukkan bagaimana kinerja firewall akibat implementasi \textit{Deep Packet Inspection}.
+\end{enumerate}
 
 \section{Batasan Masalah}
-Implementasi DPI pada firewall \textit{open-source} difokuskan pada hal-hal sebagai berikut:
+
+Untuk mencapai tujuan yang telah dijelaskan pada subbab sebelumnya, implementasi DPI pada firewall \textit{open-source} difokuskan pada hal-hal sebagai berikut:
+
 \begin{enumerate}
 	\item Implementasi dilakukan pada firewall \textit{open-source} iptables.
-	\item Implementasi tidak difokuskan untuk meningkatkan kinerja firewall setelah \textit{DPI} diimplementasi.
-	\item Implementasi menggunakan komponen-komponen yang sudah ada dari pustaka \textit{open-source} dengan kapabilitas DPI.
-	\item Implementasi akan dibatasi untuk melakukan deteksi pada \textit{malware} WannaCry.
+	\item Implementasi tidak berfokus untuk meningkatkan kinerja firewall setelah \textit{DPI} di-implementasi.
+	\item Implementasi menggunakan komponen-komponen yang sudah ada dari pustaka \textit{open-source} dengan kemampuan DPI.
+	\item Implementasi akan dibatasi untuk melakukan deteksi pada malware WannaCry.
 \end{enumerate}
 
 \section{Metodologi}
 Metodologi yang digunakan pada pengerjaan tugas akhir ini, antara lain:
 \begin{enumerate}
 	\item Studi literatur. Pada studi literatur, dilakukan pencarian referensi mengenai
-	definisi-definisi pada domain \textit{next-generation firewall}, dan metode apa saja yang dapat 
+	definisi-definisi pada domain firewall, dan metode apa saja yang dapat 
 	dilakukan untuk mendeteksi serangan yang dilakukan malware. Referensi juga
 	digunakan untuk mendapatkan \textit{state of the art} dari domain ini.
-	\item Analisis. Dalam tahapan ini dilakukan analisis malware dan analisis gap dari
+	\item Analisis. Dalam tahapan ini dilakukan analisis malware dan analisis \textit{gap} dari
 	kakas yang sudah ada untuk membuat kakas yang dapat mendeteksi dan melakukan pencegahan
 	serangan dari sebuah malware melalui jaringan.
-	\item Perancangan solusi. Hasil analisis yang telah dilakukan dan gap yang telah diketahui,
+	\item Perancangan solusi. Hasil analisis yang telah dilakukan dan \textit{gap} yang telah diketahui,
 	dirancang sebuah kakas yang sesuai dengan kebutuhan yang muncul.
 	\item Implementasi. Pada tahap ini hasil rancangan kemudian diimplementasikan.
 	\item Pengujian dan analisis hasil. Pada tahap ini hasil implementasi dilakukan

@@ -1,12 +1,12 @@
-\chapter{Instrumen Pengujian}
+\chapterappendix{Instrumen Pengujian}
 
 Lampiran ini berisi instrumen pengujian yang digunakan untuk melakukan pengumpulan data. Pengumpulan data dilakukan dengan otomasi pada \textit{hypervisor} yang menggunakan \verb|qemu|. Otomasi dilakukan untuk mengumpulkan data dalam bentuk \verb|pcap|. Lampiran ini ditambahkan untuk mempermudah pembaca untuk mendapatkan data seperti yang dilakukan pada penelitian ini.
 
-\section{Konfigurasi}
+\sectionappendix{Konfigurasi}
 
 Dalam instrumen pengujian yang digunakan untuk pengumpulan data terdapat beberapa konfigurasi penting, yakni: bridge, dhcp server dan transparent firewall.
 
-\subsection{/etc/dhcp/dhcpd.conf}
+\subsectionappendix{/etc/dhcp/dhcpd.conf}
 
 \begin{lstlisting}
 option domain-name "local";
@@ -22,7 +22,7 @@ subnet 192.168.1.0 netmask 255.255.255.0 {
 }
 \end{lstlisting}
 
-\subsection{/etc/sysconfig/network-scripts/ifcfg-br0}
+\subsectionappendix{/etc/sysconfig/network-scripts/ifcfg-br0}
 
 \begin{lstlisting}
 DEVICE=br0
@@ -35,7 +35,7 @@ NM_CONTROLLED=no
 DELAY=0
 \end{lstlisting}
 
-\subsection{/etc/sysconfig/network-scripts/ifcfg-eth0}
+\subsectionappendix{/etc/sysconfig/network-scripts/ifcfg-eth0}
 
 \begin{lstlisting}
 TYPE=Ethernet
@@ -46,7 +46,7 @@ NM_CONTROLLED=no
 BRIDGE=br0
 \end{lstlisting}
 
-\subsection{/etc/sysconfig/network-scripts/ifcfg-eth1}
+\subsectionappendix{/etc/sysconfig/network-scripts/ifcfg-eth1}
 
 \begin{lstlisting}
 TYPE=Ethernet
@@ -57,15 +57,15 @@ NM_CONTROLLED=no
 BRIDGE=br0
 \end{lstlisting}
 
-\subsection{Konfigurasi Khusus Transparent Firewall}
+\subsectionappendix{Konfigurasi Khusus Transparent Firewall}
 
 \begin{lstlisting}
 echo 1 > /proc/sys/net/bridge/bridge-nf-call-iptables
 \end{lstlisting}
 
-\section{Otomasi}
+\sectionappendix{Otomasi}
 
-\subsection{start.sh}
+\subsectionappendix{start.sh}
 
 Script ini digunakan untuk melakukan otomasi untuk menghidupkan \textit{instance virtual machine}, mengirimkan perintah capture, menghentikan \textit{instance virtual machine} dan mengatur kembali keadaan \textit{instance virtual machine}. Menghidupkan dan menghentikan instance virtual machine dilakukan dengan perintah \verb|virsh|. Mengirimkan perintah capture dengan melakukan \verb|SSH| ke firewall. Bagian mengatur kembali keadaan dengan menghapus image, dan menyalin dari master.
 
@@ -98,7 +98,7 @@ cp -v ibrohim-wannacry-master.img ibrohim-wannacry.img
 echo "done."
 \end{lstlisting}
 
-\subsection{capture.sh}
+\subsectionappendix{capture.sh}
 
 Script ini digunakan untuk melakukan \textit{packet capture}. \textit{Packet capture} dilakukan dengan menggunakan perintah \verb|tcpdump|.
 
@@ -113,7 +113,7 @@ file=output.$i.pcap
 echo "output: $file"
 echo "start capturing..."
 tcpdump -s0 -vv -w $file &
-sleep 30m; kill $!hmm
+sleep 30m; kill $!
 
 echo "done."
 \end{lstlisting}

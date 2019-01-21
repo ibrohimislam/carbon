@@ -1,14 +1,22 @@
 \chapter{Penutup}
 
-Pada bab ini disampaikan kesimpulan yang didapatkan dari tugas akhir ini. Kemudian bab ini dilanjutkan dengan saran dari penulis.
+Pada bab ini disampaikan kesimpulan yang didapatkan dari tugas akhir ini. Kesimpulan ini dihasilkan dari hasil implementasi dan hasil pengujian pada bab sebelumnya. Kemudian bab ini dilanjutkan dengan saran dari penulis mengenai pengembangan implementasi DPI pada firewall untuk penelitian selanjutnya.
 
 \section{Kesimpulan}
 
-Implementasi DPI pada firewall open-source iptables dapat digunakan sebagai penangkal malware yang pada tugas akhir ini dibatasi pada malware WannaCry. Implementasi dilakukan dengan menggunakan teknik \textit{dynamic signature-based}. Pengujian yang dilakukan belum ditemukan \textit{false-negative} pada implementasi DPI ini.
+Implementasi DPI pada firewall \textit{open-source} iptables dapat digunakan sebagai penangkal malware yang pada tugas akhir ini dibatasi pada malware WannaCry. Dalam pengembangan tersebut dapat disimpulkan hal sebagai berikut.
+
+\begin{enumerate}
+	\item Pendekatan \textit{dynamic signature-based} merupakan pendekatan yang cukup praktis karena dapat meminimalisir \textit{false-positive} untuk membedakan infeksi malware dan aktivitas normal.
+	\item Dalam pendekatan \textit{dynamic signature-based}, untuk mengenali malware diperlukan analisis \textit{signature} dari aktivitas infeksi. Deteksi infeksi  WannaCry dapat dilakukan dengan melakukan deteksi pada vulnerability EternalBlue.
+	\item Dari hasil percobaan yang dilakukan belum ditemukan \textit{false-negative}. Namun dengan pemilihan signature EternalBlue dapat menimbulkan false-positive ketika ada serangan dari malware atau \textit{attacker} lain yang menggunakan vulnerability yang sama.
+	\item Dari hasil percobaan terlihat penurunan performa sebesar 4\% pada \textit{bandwidth} dan kenaikan \textit{packet retry} sebesar 8202\%.
+\end{enumerate}
 
 \section{Saran}
 
 Saran-saran untuk pengembangan selanjutnya berdasarkan pengembangan yang telah dilakukan.
+
 \begin{enumerate}
 	\item Membuat \textit{Domain Specific Language} untuk merepresentasikan sebuah protokol. Dengan DSL diharapkan penambahan protokol untuk dikenali oleh DPI dapat dilakukan dengan lebih mudah.
 	\item Implementasi \textit{state machine} yang tidak hanya bergantung pada satu koneksi. Hal ini dapat meningkatkan kemampuan firewall untuk mendeteksi malware yang melakukan infeksi tidak hanya menggunakan \textit{single-connection}.

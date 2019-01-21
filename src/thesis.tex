@@ -28,7 +28,7 @@
 \usepackage[utf8]{inputenc}
 
 % citation style
-\usepackage[backend=bibtex,citestyle=authoryear]{biblatex}
+\usepackage[backend=bibtex,style=authoryear]{biblatex}
 
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
 \usepackage[T1]{fontenc}
@@ -43,6 +43,7 @@
 \usepackage{caption}
 \usepackage{tabularx}
 \usepackage{multirow}
+\usepackage[toc,page,header]{appendix}
 
 %remove spacing before chapter
 \usepackage{titlesec}
@@ -55,6 +56,15 @@
 \setlength{\cfttabnumwidth}{1.5cm}
 \setlength{\cftfignumwidth}{1.5cm}
 
+\renewcommand{\cftpartpresnum}{\partname\hspace{10pt}}
+\renewcommand{\cftchappresnum}{\chaptername\hspace{5pt}}
+
+\renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+\renewcommand{\cftchapnumwidth}{4.2em}
+
 \setlength{\cftbeforetoctitleskip}{-20pt}
 \renewcommand{\cfttoctitlefont}{\hfill\large\bfseries}
 \renewcommand{\cftaftertoctitle}{\hfill\hfill}
@@ -66,6 +76,51 @@
 \setlength{\cftbeforelottitleskip}{-20pt}
 \renewcommand{\cftlottitlefont}{\hfill\hfill\large\bfseries}
 \renewcommand{\cftafterlottitle}{\hfill\hfill}
+
+% Daftar Lampiran %
+\newcommand{\listappendixname}{Daftar Lampiran}
+\newlistof{appendix}{app}{\listappendixname}
+\setcounter{appdepth}{2}
+\makeatletter
+\AtBeginDocument{
+	\newcommand{\@maketoatitle}{%
+		\vspace*{\cftbeforeloftitleskip}
+		\interlinepenalty\@M
+		{\cftloftitlefont\listappendixname}{\cftafterloftitle}
+		\cftmarklof
+		\par\nobreak
+		\vskip \cftafterloftitleskip
+		\@afterheading
+	}
+	\renewcommand{\listofappendix}{
+		\renewcommand{\cftchappresnum}{\appendixname\hspace{5pt}}
+		\renewcommand{\cftchapnumwidth}{6em}
+		\@cfttocstart
+		\par
+		\begingroup
+			\@maketoatitle
+			\parindent\z@ \parskip\z@
+			\@starttoc{app}%
+		\endgroup
+	}
+}
+\makeatother
+\newcommand{\chapterappendix}[1]{%
+	\stepcounter{chapter}
+	\chapter*{\appendixname\space\thechapter\linebreak#1}%
+	\addcontentsline{app}{chapter}{\protect\numberline{\thechapter}#1}%
+	\par
+}
+\newcommand{\sectionappendix}[1]{%
+	\stepcounter{section}
+	\section*{\thesection\quad#1}%
+	\addcontentsline{app}{section}{\protect\numberline{\thesection}#1}%
+}
+\newcommand{\subsectionappendix}[1]{%
+	\stepcounter{subsection}
+	\subsection*{\thesubsection\quad#1}%
+	\addcontentsline{app}{subsection}{\protect\numberline{\thesubsection}#1}%
+}
 
 \usepackage{listings}
 \lstset{
@@ -147,7 +202,7 @@ oleh\\
 
 \begin{document}
 
-\title{Implementasi DPI pada Iptables sebagai Penangkal Infeksi Malware Melalui Jaringan}
+\title{Implementasi Deep Packet Inspection pada Iptables sebagai Penangkal Infeksi Malware Melalui Jaringan}
 \date{}
 \author{IBROHIM KHOLILUL ISLAM\\
 NIM : 13513090}
@@ -165,6 +220,8 @@ NIM : 13513090}
 \clearpage
 
 \tableofcontents
+\clearpage
+\listofappendix
 \clearpage
 \listoffigures
 \clearpage
@@ -185,11 +242,13 @@ NIM : 13513090}
 \input{chapters/chapter-5}
 
 
-\printbibliography
+\printbibliography[heading=bibintoc,title={Daftar Referensi}]
 
 \appendix
-\addcontentsline{toc}{part}{Lampiran}
-\part*{Lampiran}
+\part*{LAMPIRAN}
+
+\captionsetup[figure]{list=no}
+\captionsetup[table]{list=no}
 
 \input{chapters/appendix-1}
 \input{chapters/appendix-2}

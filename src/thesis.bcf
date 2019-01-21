@@ -137,7 +137,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>uniquelist</bcf:key>
-      <bcf:value>1</bcf:value>
+      <bcf:value>2</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>uniquename</bcf:key>
@@ -2124,50 +2124,70 @@
     <bcf:datasource type="file" datatype="bibtex">references.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="6">zwicky2000building</bcf:citekey>
-    <bcf:citekey order="7">nicoll2004challenges</bcf:citekey>
-    <bcf:citekey order="8">zhong2012design</bcf:citekey>
-    <bcf:citekey order="9">zhong2012design</bcf:citekey>
-    <bcf:citekey order="10">zhong2012design</bcf:citekey>
-    <bcf:citekey order="11">miller2011next</bcf:citekey>
-    <bcf:citekey order="12">zhong2012design</bcf:citekey>
-    <bcf:citekey order="13">zhong2012design</bcf:citekey>
-    <bcf:citekey order="14">zhong2012design</bcf:citekey>
-    <bcf:citekey order="15">miller2011next</bcf:citekey>
-    <bcf:citekey order="16">miller2011next</bcf:citekey>
-    <bcf:citekey order="17">miller2011next</bcf:citekey>
-    <bcf:citekey order="18">miller2011next</bcf:citekey>
-    <bcf:citekey order="19">allot2007digging</bcf:citekey>
-    <bcf:citekey order="20">allot2007digging</bcf:citekey>
-    <bcf:citekey order="21">allot2007digging</bcf:citekey>
-    <bcf:citekey order="22">idika2007survey</bcf:citekey>
-    <bcf:citekey order="23">attackingmalcode</bcf:citekey>
-    <bcf:citekey order="24">attackingmalcode</bcf:citekey>
-    <bcf:citekey order="25">attackingmalcode</bcf:citekey>
-    <bcf:citekey order="26">idika2007survey</bcf:citekey>
-    <bcf:citekey order="27">idika2007survey</bcf:citekey>
-    <bcf:citekey order="28">idika2007survey</bcf:citekey>
-    <bcf:citekey order="29">purdy2004linux</bcf:citekey>
-    <bcf:citekey order="30">6620049</bcf:citekey>
-    <bcf:citekey order="31">alsamer2016</bcf:citekey>
-    <bcf:citekey order="32">alsamer2016</bcf:citekey>
-    <bcf:citekey order="33">alsamer2016</bcf:citekey>
-    <bcf:citekey order="34">alsamer2016</bcf:citekey>
-    <bcf:citekey order="35">alsamer2016</bcf:citekey>
-    <bcf:citekey order="36">alsamer2016</bcf:citekey>
-    <bcf:citekey order="37">6620049</bcf:citekey>
-    <bcf:citekey order="38">6620049</bcf:citekey>
+    <bcf:citekey order="14">alcatel_lucent_2013</bcf:citekey>
+    <bcf:citekey order="15">marpaung2012survey</bcf:citekey>
+    <bcf:citekey order="16">kizza2002computer</bcf:citekey>
+    <bcf:citekey order="17">zwicky2000building</bcf:citekey>
+    <bcf:citekey order="18">nicoll2004challenges</bcf:citekey>
+    <bcf:citekey order="19">zhong2012design</bcf:citekey>
+    <bcf:citekey order="20">zhong2012design</bcf:citekey>
+    <bcf:citekey order="21">zhong2012design</bcf:citekey>
+    <bcf:citekey order="22">miller2011next</bcf:citekey>
+    <bcf:citekey order="23">zhong2012design</bcf:citekey>
+    <bcf:citekey order="24">zhong2012design</bcf:citekey>
+    <bcf:citekey order="25">zhong2012design</bcf:citekey>
+    <bcf:citekey order="26">miller2011next</bcf:citekey>
+    <bcf:citekey order="27">miller2011next</bcf:citekey>
+    <bcf:citekey order="28">miller2011next</bcf:citekey>
+    <bcf:citekey order="29">miller2011next</bcf:citekey>
+    <bcf:citekey order="30">allot2007digging</bcf:citekey>
+    <bcf:citekey order="31">allot2007digging</bcf:citekey>
+    <bcf:citekey order="32">allot2007digging</bcf:citekey>
+    <bcf:citekey order="33">idika2007survey</bcf:citekey>
+    <bcf:citekey order="34">attackingmalcode</bcf:citekey>
+    <bcf:citekey order="35">attackingmalcode</bcf:citekey>
+    <bcf:citekey order="36">attackingmalcode</bcf:citekey>
+    <bcf:citekey order="37">idika2007survey</bcf:citekey>
+    <bcf:citekey order="38">idika2007survey</bcf:citekey>
     <bcf:citekey order="39">idika2007survey</bcf:citekey>
-    <bcf:citekey order="40">idika2007survey</bcf:citekey>
-    <bcf:citekey order="41">6620049</bcf:citekey>
-    <bcf:citekey order="42">islam2018smb</bcf:citekey>
-    <bcf:citekey order="43">islam2018smb</bcf:citekey>
-    <bcf:citekey order="44">grossman2017check</bcf:citekey>
-    <bcf:citekey order="45">islam2018smb</bcf:citekey>
-    <bcf:citekey order="46">o2012ransomware</bcf:citekey>
-    <bcf:citekey order="47">islam2018smb</bcf:citekey>
-    <bcf:citekey order="48">deri2014ndpi</bcf:citekey>
-    <bcf:citekey order="49">bujlow2013comparison</bcf:citekey>
+    <bcf:citekey order="40">rash2007linux</bcf:citekey>
+    <bcf:citekey order="41">purdy2004linux</bcf:citekey>
+    <bcf:citekey order="42">purdy2004linux</bcf:citekey>
+    <bcf:citekey order="43">purdy2004linux</bcf:citekey>
+    <bcf:citekey order="44">purdy2004linux</bcf:citekey>
+    <bcf:citekey order="45">purdy2004linux</bcf:citekey>
+    <bcf:citekey order="46">purdy2004linux</bcf:citekey>
+    <bcf:citekey order="47">purdy2004linux</bcf:citekey>
+    <bcf:citekey order="48">rash2007linux</bcf:citekey>
+    <bcf:citekey order="49">rash2007linux</bcf:citekey>
+    <bcf:citekey order="50">purdy2004linux</bcf:citekey>
+    <bcf:citekey order="51">purdy2004linux</bcf:citekey>
+    <bcf:citekey order="52">purdy2004linux</bcf:citekey>
+    <bcf:citekey order="53">purdy2004linux</bcf:citekey>
+    <bcf:citekey order="54">purdy2004linux</bcf:citekey>
+    <bcf:citekey order="55">purdy2004linux</bcf:citekey>
+    <bcf:citekey order="56">purdy2004linux</bcf:citekey>
+    <bcf:citekey order="57">purdy2004linux</bcf:citekey>
+    <bcf:citekey order="58">6620049</bcf:citekey>
+    <bcf:citekey order="59">alsamer2016</bcf:citekey>
+    <bcf:citekey order="60">alsamer2016</bcf:citekey>
+    <bcf:citekey order="61">alsamer2016</bcf:citekey>
+    <bcf:citekey order="62">alsamer2016</bcf:citekey>
+    <bcf:citekey order="63">alsamer2016</bcf:citekey>
+    <bcf:citekey order="64">alsamer2016</bcf:citekey>
+    <bcf:citekey order="65">6620049</bcf:citekey>
+    <bcf:citekey order="66">6620049</bcf:citekey>
+    <bcf:citekey order="67">idika2007survey</bcf:citekey>
+    <bcf:citekey order="68">idika2007survey</bcf:citekey>
+    <bcf:citekey order="69">6620049</bcf:citekey>
+    <bcf:citekey order="70">islam2018smb</bcf:citekey>
+    <bcf:citekey order="71">islam2018smb</bcf:citekey>
+    <bcf:citekey order="72">grossman2017check</bcf:citekey>
+    <bcf:citekey order="73">islam2018smb</bcf:citekey>
+    <bcf:citekey order="74">o2012ransomware</bcf:citekey>
+    <bcf:citekey order="75">islam2018smb</bcf:citekey>
+    <bcf:citekey order="76">deri2014ndpi</bcf:citekey>
+    <bcf:citekey order="77">bujlow2013comparison</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="apa">
